@@ -1,0 +1,134 @@
+@use "../../utils/variables.scss" as var;
+@use "../../utils/mixins.scss" as mix;
+
+.budget_btn_wrapper {
+  min-height: 46px;
+  min-width: 100px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  &.primary {
+    background-color: var.$primaryColor;
+    @include mix.title_medium(var.$whiteColor);
+
+    &:hover {
+      background-color: lighten(var.$primaryColor, 5%);
+      color: var.$whiteColor;
+    }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$whiteColor;
+      }
+    }
+  }
+
+  &.secondary {
+    background-color: var.$whiteColor;
+    border: 1px solid var.$primaryText;
+    @include mix.title_medium(var.$primaryText);
+
+    &:hover {
+      background-color: var.$primaryText;
+      color: var.$whiteColor;
+      .btn_spinner {
+        svg {
+          stroke: var.$whiteColor;
+        }
+      }
+    }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$primaryColor;
+      }
+    }
+  }
+
+  &.tertiary {
+    background-color: var.$whiteColor;
+    border: 1px solid var.$tertiaryBtn;
+    @include mix.title_medium(var.$primaryText);
+
+    &:hover {
+      background-color: var.$primaryColor;
+      color: var.$whiteColor;
+      .btn_spinner {
+        svg {
+          stroke: var.$whiteColor;
+        }
+      }
+    }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$primaryText;
+      }
+    }
+  }
+
+  &.sortBtn {
+    background-color: var.$whiteColor;
+    border: 1px solid var.$primaryText;
+    @include mix.title_medium(var.$primaryText);
+
+    // &:hover {
+    //   background-color: var.$primaryText;
+    //   color: var.$whiteColor;
+    // }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$primaryText;
+      }
+    }
+  }
+
+  &.filterBtn {
+    background-color: var.$filterBtn;
+    @include mix.title_medium(var.$whiteColor);
+    color: var.$whiteColor;
+    &:hover {
+      opacity: 0.9;
+      color: var.$whiteColor;
+    }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$whiteColor;
+      }
+    }
+  }
+
+  &.clearFilterBtn {
+    background-color: transparent;
+    @include mix.title_medium(var.$secondaryColor);
+
+    &:hover {
+      background-color: transparent;
+      color: var.$secondaryColor;
+    }
+
+    .btn_spinner {
+      svg {
+        stroke: var.$secondaryBtn;
+      }
+    }
+  }
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.transition-transform {
+  transition: transform 0.3s ease;
+}
+.budget_dropdown_menu {
+  width: auto;
+}

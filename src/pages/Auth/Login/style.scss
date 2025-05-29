@@ -1,0 +1,12 @@
+@use "../../../utils/variables.scss" as var;
+
+.budget_auth_img_section {
+  background-color: var.$login_bg;
+}
+
+.budget_auth_btn_section {
+  margin-top: 20px;
+  .budget_auth_btn {
+    width: 100%;
+  }
+}

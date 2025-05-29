@@ -1,0 +1,60 @@
+@use "./utils/variables.scss" as var;
+@use "tailwindcss" as *;
+@use './utils/base.scss' as base;
+
+:root{
+   font-family: base.$font_family !important;
+}
+
+.body{
+  color: var.$blackColor;
+  background-color: var.$whiteColor;
+   
+}
+h1 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin: 0;
+  color: var.$blackColor;
+}
+
+h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var.$blackColor;
+}
+h3 {
+  font-size: 28px;
+  font-weight: 600;
+  color: var.$blackColor;
+}
+h4 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var.$blackColor;
+}
+
+h5 {
+  font-size: 20px;
+  font-weight: 600 !important;
+  color: var.$blackColor;
+}
+p {
+  font-size: 16px;
+  font-weight: 500;
+  color: var.$blackColor;
+}
+span {
+  font-size: 16px;
+  font-weight: 500;
+  color: var.$blackColor;
+}
+label {
+  font-size: 14px;
+  font-weight: 400;
+  color: var.$blackColor;
+}
+.cursor_pointer{
+  cursor: base.$cursor_pointer;
+}

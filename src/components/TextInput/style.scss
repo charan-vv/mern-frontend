@@ -1,0 +1,24 @@
+@use "../../utils/variables.scss" as var;
+
+
+
+.textInput__wrapper {
+  margin-top: 10px;
+  .textInput__container {
+    padding: 10px;
+    border: 1px solid var.$borderColor;
+    border-radius: 8px;
+    color: var.$blackColor;
+
+    &:focus {
+      border-color: var.$borderColor;
+      box-shadow: none !important;
+    }
+  }
+
+  .ant-input-outlined:focus,
+  .ant-input-outlined:focus-within {
+    border-color: var.$borderColor !important;
+    box-shadow: none !important;
+  }
+}

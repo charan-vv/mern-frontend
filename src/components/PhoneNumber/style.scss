@@ -1,0 +1,26 @@
+@use "../../utils/variables.scss" as var;
+
+.phoneInput__wrapper {
+  .PhoneInput {
+    height: 40px;
+    border: 1px solid var.$borderColor !important;
+    border-radius: 8px;
+    
+    // Add focus styles directly to PhoneInput
+    // &:focus-within {
+    //   border-color: transparent !important;
+    //   box-shadow: none !important;
+    // }
+  }
+
+  .PhoneInputCountry{
+    padding-left: 5px;
+  }
+  
+  // Target the actual input element inside PhoneInput
+  .PhoneInput input:focus {
+    border-color: transparent !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}

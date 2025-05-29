@@ -1,0 +1,13 @@
+@use "../utils/variables.scss" as var;
+@use "../utils/base.scss" as base;
+
+.budget_login_screen {
+  width: 100%;
+  height: 100vh;
+}
+
+.budget_app_screen {
+  width: base.$side_bar_width;
+  background-color: var.$secondaryColor;
+  height: 100vh;
+}
