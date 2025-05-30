@@ -1,13 +1,20 @@
 import { Formik, Form } from "formik";
 import React,{ useState } from "react";
-import { LoginImg } from "../../../config";
-import { TextInput, Button } from "../../../components";
-import { loginValidationSchema } from "../../../validations/auth";
-import fields from "../login.json";
-import "./style.scss";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {LoginAction} from "../../redux/actions/auth"
+import { LoginImg } from "../../config";
+import { TextInput, Button } from "../../components";
+import { loginValidationSchema } from "../../validations/auth";
+import {useToast} from "../../helpers/toaster"
+import fields from "./login.json";
+import "./style.scss";
 
-const Auth = () => {
+
+const Login = () => {
+  const navigate =useNavigate();
+  const dispatch =useDispatch();
+  const toast=useToast()
   const [infoState, setInfoState] = useState({
     message: {
       success: { popup: false, message: "" },
@@ -15,7 +22,7 @@ const Auth = () => {
     },
     loader: { login_button: false },
   });
-  const navigate =useNavigate();
+  
 
   const handleSignupNavigation = ()=>{
     navigate('/register')
@@ -25,18 +32,24 @@ const Auth = () => {
   }
 
   const handleSubmit = (values ) => {
-    console.log("Login submitted with:", values);
-    setInfoState((prev) => ({
-      ...prev,
-      loader: { ...prev.loader, login_button: true },
-    }));
-
-    setTimeout(() => {
-      setInfoState((prev) => ({
-        ...prev,
-        loader: { ...prev.loader, login_button: false },
-      }));
-    }, 1500);
+    setInfoState((prev) => ({...prev,loader: { ...prev.loader, login_button: true },}));
+      dispatch(LoginAction(values)).then((res)=>{
+         setInfoState((prev) => ({...prev,loader: { ...prev.loader, login_button: false },}));
+        
+        if(res?.payload?.code===200){
+          toast.success(res?.payload?.message)
+          const store={
+            user_id:res?.payload?.data?.uid,
+            token:res?.payload?.token
+          }
+          dispatch(login_success(store))
+          localStorage.setItem("user_id", res?.payload?.data?.uid);
+          localStorage.setItem("token", res?.payload?.token);
+          navigate('/')
+        }else{
+           toast.error(res?.payload?.message)
+        }
+      })
   };
 
 
@@ -86,4 +99,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default Login;

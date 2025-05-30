@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "../components";
 
-const Login = React.lazy(() => import("../pages/Auth/Login"));
+const Login = React.lazy(() => import("../pages/Auth"));
 const Register =React.lazy(()=>import ("../pages/Auth/Register"));
 const ForgotPassword =React.lazy(()=>import ('../pages/Auth/ForgotPassword'));
 
