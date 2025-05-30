@@ -29,6 +29,7 @@
       "type": "text",
       "showAsterisk": true
     },
+   
     {
       "field": "button",
       "textContent": "Get Otp",
@@ -88,6 +89,19 @@
       "field":"otp",
       "length":5,
       "showAsterisk": true
+    },
+     {
+      "field": "password",
+      "type": "password",
+      "label": "Password",
+      "name": "password",
+      "showAsterisk": true
+    },
+    {
+      "field": "button",
+      "textContent": "Login",
+      "class": "budget_auth_btn",
+      "type": "submit"
     },
     {
       "field": "button",

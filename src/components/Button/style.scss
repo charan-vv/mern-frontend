@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use "../../utils/variables.scss" as var;
 @use "../../utils/mixins.scss" as mix;
 
@@ -17,7 +18,7 @@
     @include mix.title_medium(var.$whiteColor);
 
     &:hover {
-      background-color: lighten(var.$primaryColor, 5%);
+      background-color: color.adjust(var.$primaryColor, $lightness: 5%);
       color: var.$whiteColor;
     }
 

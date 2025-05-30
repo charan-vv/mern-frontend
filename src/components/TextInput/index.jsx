@@ -101,8 +101,10 @@ const CustomTextInput = ({
         status={error ? "error" : ""}
         prefix={renderPrefix}
         suffix={renderSuffix}
+        autoComplete="off"
         {...rest}
         className="textInput__container"
+       
       />
       {error && (
         <div className="text-[red] mt-1 ml-2" style={{ fontSize: 12 }}>

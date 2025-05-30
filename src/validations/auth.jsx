@@ -29,11 +29,16 @@ export const registerValidationSchema = Yup.object({
 
   password: Yup.string()
     .required('Password is required')
-    .min(6, 'Password must be at least 6 characters'),
+    .min(8, 'Password must be at least 8 characters'),
 
   phone_number: Yup.string()
-      .required('Phone number is required')
-      .matches(/^[6-9]\d{9}$/, 'Invalid phone number'),
+  .required('Phone number is required')
+  .test('valid-indian-number', 'Invalid Indian phone number', (value) => {
+    if (!value) return false;
+    const number = value.replace(/^\+91/, ''); // strip +91
+    return /^[6-9]\d{9}$/.test(number);
+  }),
+
 });
 
 

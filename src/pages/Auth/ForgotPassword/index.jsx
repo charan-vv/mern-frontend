@@ -4,7 +4,7 @@ import { RegisterImg } from "../../../config";
 import { TextInput, Button, OtpInput, Popup } from "../../../components";
 import { forgetPasswordValidationSchema } from "../../../validations/auth";
 import fields from "../login.json";
-import "../Login/style.scss";
+import "../style.scss";
 import { useNavigate } from "react-router-dom";
 
 const Register = () => {
@@ -19,6 +19,7 @@ const Register = () => {
       data: {},
       otp_value: "",
       errors: {},
+      show_password_input:false,
     },
   });
 
