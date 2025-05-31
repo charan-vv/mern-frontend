@@ -29,13 +29,12 @@
       "type": "text",
       "showAsterisk": true
     },
-   
     {
       "field": "button",
       "textContent": "Get Otp",
       "class": "budget_auth_btn",
       "type": "submit",
-      "variant":"primary"
+      "variant": "primary"
     }
   ],
   "register": [
@@ -67,7 +66,7 @@
       "type": "password",
       "showAsterisk": true
     },
-     {
+    {
       "field": "phone_number",
       "type": "password",
       "label": "Phone Number",
@@ -78,37 +77,49 @@
       "field": "button",
       "textContent": "Register",
       "class": "budget_auth_btn",
-      "variant":"primary",
+      "variant": "primary",
       "type": "submit"
     }
   ],
-  "forgot_password_popup":{
-    "popupTitle":"Otp has been send to ",
-    "fields":[
-    {
-      "field":"otp",
-      "length":5,
-      "showAsterisk": true
-    },
-     {
-      "field": "password",
-      "type": "password",
-      "label": "Password",
-      "name": "password",
-      "showAsterisk": true
-    },
-    {
-      "field": "button",
-      "textContent": "Login",
-      "class": "budget_auth_btn",
-      "type": "submit"
-    },
-    {
-      "field": "button",
-      "textContent": "Submit",
-      "class": "budget_auth_btn",
-      "type": "submit"
-    }
-  ]
+  "forgot_password_popup": {
+    "popupTitle": "Otp has been send to ",
+    "popup_title":"Reset Password",
+    "fields": [
+      {
+        "field": "otp",
+        "length": 6,
+        "showAsterisk": true
+      },
+      {
+        "field": "button",
+        "textContent": "Submit",
+        "class": "budget_auth_btn",
+        "type": "submit",
+        "variant": "primary"
+      },
+      {
+        "field": "button",
+        "textContent": "Re-Send",
+        "class": "budget_auth_btn",
+        "type": "submit",
+        "variant": "secondary"
+      }
+    ],
+    "verify_fields": [
+      {
+        "field": "password",
+        "type": "password",
+        "label": "Password",
+        "name": "password",
+        "showAsterisk": true
+      },
+      {
+        "field": "button",
+        "textContent": "Submit",
+        "class": "budget_auth_btn",
+        "type": "submit",
+        "variant": "primary"
+      }
+    ]
   }
 }

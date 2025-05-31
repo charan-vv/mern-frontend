@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Input, Flex } from "antd";
 import "./style.scss";
 
-const OtpInputGroup = ({ length = 5, value = "", onChange, name }) => {
+const OtpInputGroup = ({ length = 6, value = "", onChange, name, error, }) => {
   const inputRefs = useRef([]);
 
   const handleChange = (e, index) => {
@@ -26,6 +26,7 @@ const OtpInputGroup = ({ length = 5, value = "", onChange, name }) => {
   };
 
   return (
+   <>
     <Flex gap="small" className="budget_otp_input_group">
       {[...Array(length)].map((_, i) => (
         <Input
@@ -39,7 +40,14 @@ const OtpInputGroup = ({ length = 5, value = "", onChange, name }) => {
           className="budget_otp_input"
         />
       ))}
+      
     </Flex>
+    {error && (
+        <div className="text-[red] mt-1 ml-2 text-center" style={{ fontSize: 12 }}>
+          {error}
+        </div>
+      )}
+   </>
   );
 };
 
