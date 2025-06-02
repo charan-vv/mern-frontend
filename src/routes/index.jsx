@@ -1,28 +1,52 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "../components";
 
-const Login = React.lazy(() => import("../pages/Auth"));
-const Register =React.lazy(()=>import ("../pages/Auth/Register"));
-const ForgotPassword =React.lazy(()=>import ('../pages/Auth/ForgotPassword'));
+// Lazy loaded pages
+const LazyLoad = (path) => lazy(() => import(`../pages/${path}`));
+const PageNotFound = lazy(() => import("../NotFoundPage"));
+const Login = LazyLoad("Auth");
+const Register = LazyLoad("Auth/Register");
+const ForgotPassword = LazyLoad("Auth/ForgotPassword");
+const Dashboard = LazyLoad("Dashboard");
+const Budget = LazyLoad("Budget");
+const Categories = LazyLoad("Categories");
+const Reports = LazyLoad("Reports");
+const Settings = LazyLoad("Settings");
+const Transcations = LazyLoad("Transcations");
 
-const RouteComponent = () => {
-  const routes = [
-    { path: "/login", element: <Login pageId="Login" /> },
-    {path:"/forgot-password",element:<ForgotPassword pageId='ForgetPassword'/>},
-    {path:"/register",element:<Register pageId ='register'/>},
-    { path: "/", element: <Navigate to="/login" replace /> },
-  ];
+const isAuthenticated = () => !!localStorage.getItem("token");
 
-  return (
-    <Suspense fallback={<Loader />}>
-      <Routes>
-        {routes?.map(({ path, element }) => (
-          <Route key={path} path={path} element={element} />
-        ))}
-      </Routes>
-    </Suspense>
-  );
-};
+const ProtectedRoute = ({ children }) => isAuthenticated() ? children : <Navigate to="/login" replace />;
+const PublicRoute = ({ children }) => !isAuthenticated() ? children : <Navigate to="/dashboard" replace />;
+
+const publicRoutes = [
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
+];
+const protectedRoutes = [
+  { path: "/dashboard", element: <Dashboard /> },
+  { path: "/budget", element: <Budget /> },
+  { path: "/categories", element: <Categories /> },
+  { path: "/reports", element: <Reports /> },
+  { path: "/settings", element: <Settings /> },
+  { path: "/transcations", element: <Transcations /> },
+];
+
+const RouteComponent = () => (
+ <Suspense fallback={<Loader />}>
+    <Routes>
+      <Route path="/" element={<Navigate to="/dashboard" replace />} />
+      {publicRoutes?.map(({ path, element }) => (
+        <Route key={path} path={path} element={<PublicRoute>{element}</PublicRoute>} />
+      ))}
+      {protectedRoutes?.map(({ path, element }) => (
+        <Route key={path} path={path} element={<ProtectedRoute>{element}</ProtectedRoute>} />
+      ))}
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  </Suspense>
+);
 
 export default RouteComponent;

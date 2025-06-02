@@ -30,6 +30,7 @@ const CustomTextInput = ({
 
   const isPassword = type === "password";
   const isSearch = type === "search";
+  const isNumber = type === "number";
 
   const inputType = useMemo(() => {
     if (isPassword) return passwordVisible ? "text" : "password";
@@ -56,6 +57,27 @@ const CustomTextInput = ({
     setPasswordVisible((prev) => !prev);
   }, []);
 
+  const handleKeyDown = useCallback((event) => {
+    if (isNumber && ["e", "E", "+", "-"].includes(event.key)) {
+      event.preventDefault();
+    }
+  }, [isNumber]);
+
+  const handlePaste = useCallback((event) => {
+    if (isNumber) {
+      const paste = event.clipboardData.getData("text");
+      if (/[eE+\-]/.test(paste)) {
+        event.preventDefault();
+      }
+    }
+  }, [isNumber]);
+
+  const handleWheel = useCallback((e) => {
+    if (isNumber) {
+      e.target.blur();
+    }
+  }, [isNumber]);
+
   const renderSuffix = useMemo(() => {
     if (isPassword) {
       return (
@@ -77,6 +99,14 @@ const CustomTextInput = ({
     return null;
   }, [isSearch]);
 
+  const inputClassName = useMemo(() => {
+    let baseClassName = "textInput__container";
+    if (isNumber) {
+      baseClassName += " number-input";
+    }
+    return baseClassName;
+  }, [isNumber]);
+
   return (
     <div className={`textInput__wrapper ${className}`}>
       {label && (
@@ -94,6 +124,9 @@ const CustomTextInput = ({
         onChange={handleChange}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyDown={handleKeyDown}
+        onPaste={handlePaste}
+        onWheel={handleWheel}
         placeholder={placeholder}
         type={inputType}
         allowClear={allowClear}
@@ -102,9 +135,8 @@ const CustomTextInput = ({
         prefix={renderPrefix}
         suffix={renderSuffix}
         autoComplete="off"
+        className={inputClassName}
         {...rest}
-        className="textInput__container"
-       
       />
       {error && (
         <div className="text-[red] mt-1 ml-2" style={{ fontSize: 12 }}>

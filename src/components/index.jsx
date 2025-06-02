@@ -4,6 +4,7 @@ import Loader from "./Loader";
 import PhoneNumber from "./PhoneNumber";
 import Popup from "./Popup";
 import OtpInput from "./OtpInput";
+import Avatar from "./Avatar";
 
 export  {
     TextInput,
@@ -12,4 +13,5 @@ export  {
     PhoneNumber,
     Popup,
     OtpInput,
+    Avatar
 }

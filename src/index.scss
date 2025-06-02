@@ -1,15 +1,14 @@
 @use "./utils/variables.scss" as var;
 @use "tailwindcss" as *;
-@use './utils/base.scss' as base;
+@use "./utils/base.scss" as base;
 
-:root{
-   font-family: base.$font_family !important;
+:root {
+  font-family: base.$font_family !important;
 }
 
-.body{
+.body {
   color: var.$blackColor;
   background-color: var.$whiteColor;
-   
 }
 h1 {
   font-size: 40px;
@@ -55,6 +54,11 @@ label {
   font-weight: 400;
   color: var.$blackColor;
 }
-.cursor_pointer{
+.cursor_pointer {
+  cursor: base.$cursor_pointer;
+}
+.budget_icons {
+  width: 25px;
+  height: 50px;
   cursor: base.$cursor_pointer;
 }
