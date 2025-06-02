@@ -1,13 +1,239 @@
 @use "../utils/variables.scss" as var;
 @use "../utils/base.scss" as base;
 
-.budget_login_screen {
-  width: 100%;
-  height: 100vh;
+// Define sidebar widths as CSS custom properties for easier management
+:root {
+  --sidebar-expanded-width: #{base.$side_bar_expand};
+  --sidebar-collapsed-width: #{base.$side_bar_width};
+  --sidebar-margin: 20px;
+  --header-height: 70px;
+  --transition-duration: 0.3s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.budget_app_screen {
-  width: base.$side_bar_width;
-  background-color: var.$secondaryColor;
+// Main layout container
+.app-layout {
+  display: flex;
   height: 100vh;
+  width: 100%;
+  background-color: #f8fafc;
+  position: relative;
+  overflow: hidden;
+
+  // Public layout (no sidebar)
+  &.app-layout--public {
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+
+  // Sidebar container
+  &__sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    transition: width var(--transition-duration) var(--transition-timing);
+    
+    // Ensure sidebar content doesn't overflow
+    overflow: visible;
+  }
+
+  // Main content area
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-right: 3px;
+    min-height: 100vh;
+    transition: all var(--transition-duration) var(--transition-timing);
+    position: relative;
+
+    // Full width for public pages
+    &--full-width {
+      width: 100%;
+      margin-left: 0;
+    }
+
+    // Sidebar expanded state
+    &--sidebar-expanded {
+      width: calc(100% - var(--sidebar-expanded-width) - (var(--sidebar-margin) *1));
+      margin-top: 20px;
+      margin-left: calc(var(--sidebar-expanded-width) + (var(--sidebar-margin) * 1) );
+    }
+
+    // Sidebar collapsed state
+    &--sidebar-collapsed {
+      width: calc(100% - var(--sidebar-collapsed-width) - (var(--sidebar-margin) * 2));
+      margin-top: 20px;
+      margin-left: calc(var(--sidebar-collapsed-width) + (var(--sidebar-margin) * 1.75));
+    }
+  }
+
+  // Route container with proper spacing
+  &__route-container {
+    flex: 1;
+    overflow-y: auto;
+    background-color:var.$login_bg;
+    // padding: 20px;
+    border-radius: 8px;
+    // Custom scrollbar
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      
+      &:hover {
+        background: rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
+}
+
+// Header adjustments for sidebar states
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0 20px;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+// Responsive Design
+@media (max-width: 1024px) {
+  .app-layout {
+    &__content {
+      &--sidebar-expanded,
+      &--sidebar-collapsed {
+        width: 100%;
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .app-layout {
+    flex-direction: column;
+    
+    &__sidebar {
+      position: fixed;
+      transform: translateX(-100%);
+      transition: transform var(--transition-duration) ease;
+      width: var(--sidebar-expanded-width) !important;
+      
+      &.mobile-open {
+        transform: translateX(0);
+      }
+    }
+
+    &__content {
+      width: 100% !important;
+      margin-left: 0 !important;
+      
+      &--sidebar-expanded,
+      &--sidebar-collapsed {
+        width: 100% !important;
+        margin-left: 0 !important;
+      }
+    }
+
+    &__route-container {
+      padding: 15px;
+    }
+  }
+
+  .header {
+    padding: 0 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-layout {
+    &__route-container {
+      padding: 10px;
+    }
+  }
+
+  .header {
+    padding: 0 10px;
+    height: 60px;
+  }
+}
+
+// Animation utilities
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all var(--transition-duration) ease;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all var(--transition-duration) ease;
+}
+
+// Utility classes for dynamic spacing
+.content-padding {
+  &--small {
+    padding: 10px;
+  }
+  
+  &--medium {
+    padding: 20px;
+  }
+  
+  &--large {
+    padding: 30px;
+  }
+}
+
+// Loading states
+.app-layout__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f8fafc;
+  
+  &__spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    border-top: 3px solid var.$primaryColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

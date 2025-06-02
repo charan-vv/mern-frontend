@@ -1,0 +1,13 @@
+@use '../utils/variables.scss' as var;
+
+.budget_header{
+    padding: 20px;
+    background-color: var.$secondaryColor;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+
+    .avatar_bgColor{
+        background-color: var.$primaryText;
+    }
+}
