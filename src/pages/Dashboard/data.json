@@ -1,0 +1,126 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "title": "Total Revenue",
+      "value": "$34,245",
+      "trend": 12.5,
+      "progress": 65,
+      "icon": "revenue"
+    },
+    {
+      "id": 2,
+      "title": "New Users",
+      "value": "1,245",
+      "trend": 8.2,
+      "progress": 45,
+      "icon": "users"
+    },
+    {
+      "id": 3,
+      "title": "Total Orders",
+      "value": "2,548",
+      "trend": -2.4,
+      "progress": 30,
+      "icon": "orders"
+    },
+    {
+      "id": 4,
+      "title": "Gross Profit",
+      "value": "$12,845",
+      "trend": 18.7,
+      "progress": 80,
+      "icon": "profit"
+    }
+  ],
+  "balanceCards": [
+    {
+      "id": 1,
+      "gradient": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+      "balance": "12,345.00",
+      "holderName": "John Doe",
+      "cardNumber": "4242424242424242",
+      "expiry": "05/25",
+      "bank": "Chase"
+    },
+    {
+      "id": 2,
+      "gradient": "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+      "balance": "8,765.00",
+      "holderName": "John Doe",
+      "cardNumber": "5555555555554444",
+      "expiry": "08/26",
+      "bank": "Amex"
+    },
+    {
+      "id": 3,
+      "gradient": "linear-gradient(135deg, #5ee7df 0%, #b490ca 100%)",
+      "balance": "23,456.00",
+      "holderName": "John Doe",
+      "cardNumber": "378282246310005",
+      "expiry": "11/24",
+      "bank": "Citi"
+    },
+    {
+      "id": 4,
+      "gradient": "linear-gradient(135deg, #f6d365 0%, #fda085 100%)",
+      "balance": "5,678.00",
+      "holderName": "John Doe",
+      "cardNumber": "4111111111111111",
+      "expiry": "03/27",
+      "bank": "Bank of America"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "title": "Payment from John",
+      "amount": "1,250.00",
+      "date": "Today, 10:30 AM",
+      "status": "Success",
+      "icon": "J",
+      "bgColor": "#1890ff"
+    },
+    {
+      "id": 2,
+      "title": "Amazon Purchase",
+      "amount": "245.99",
+      "date": "Yesterday, 2:45 PM",
+      "status": "Pending",
+      "icon": "A",
+      "bgColor": "#faad14"
+    },
+    {
+      "id": 3,
+      "title": "Netflix Subscription",
+      "amount": "14.99",
+      "date": "Mar 12, 8:15 AM",
+      "status": "Success",
+      "icon": "N",
+      "bgColor": "#f5222d"
+    },
+    {
+      "id": 4,
+      "title": "Starbucks Payment",
+      "amount": "8.75",
+      "date": "Mar 11, 4:30 PM",
+      "status": "Failed",
+      "icon": "S",
+      "bgColor": "#52c41a"
+    },
+    {
+      "id": 5,
+      "title": "Salary Deposit",
+      "amount": "8,500.00",
+      "date": "Mar 10, 9:00 AM",
+      "status": "Success",
+      "icon": "$",
+      "bgColor": "#722ed1"
+    }
+  ],
+  "reportChart": {
+    "labels": ["Shopping", "Food", "Entertainment", "Transport"],
+    "percentages": [35, 25, 20, 20],
+    "total": "$12,345"
+  }
+}
