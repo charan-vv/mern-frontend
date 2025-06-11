@@ -9,6 +9,10 @@ import Cards from "./Card";
 import ChartJs from "./Chartjs";
 import Table from "./Table";
 import Pagination from "./Pagination";
+import AutoComplete from "./AutoComplete";
+import DatePicker from "./DatePicker";
+
+
 export  {
     TextInput,
     Button,
@@ -20,5 +24,7 @@ export  {
     Cards,
     ChartJs,
     Table,
-    Pagination
+    Pagination,
+    AutoComplete,
+    DatePicker
 }
