@@ -1,0 +1,107 @@
+{
+  "cards": [
+    {
+      "id": 1,
+      "title": "Total Balance",
+      "description": "₹25,250.05",
+      "bgColor": "rgba(249, 237, 255, 1)"
+    },
+    {
+      "id": 2,
+      "title": "Budget",
+      "description": "₹20,322.25",
+      "bgColor": "rgba(237, 241, 255, 1)"
+    },
+    {
+      "id": 3,
+      "title": "Expends",
+      "description": "₹8,256.12",
+       "bgColor": "rgba(255, 247, 237, 1)"
+    },
+    {
+      "id": 4,
+      "title": "Income",
+      "description": "₹10,286.22",
+      "bgColor": "rgba(237, 255, 238, 1)"
+    }
+  ],
+  "balanceCards": [
+    {
+      "id": 1,
+      "holderName": "Charan",
+      "cardNumber": "10/28",
+      "balance": "₹15,230.18",
+      "gradient": "from-pink-800 to-pink-900"
+    },
+    {
+      "id": 2,
+      "holderName": "Charan",
+      "cardNumber": "08/27",
+      "balance": "₹8,125.42",
+      "gradient": "from-purple-500 to-blue-500"
+    },
+    {
+      "id": 3,
+      "holderName": "Charan",
+      "cardNumber": "01/26",
+      "balance": "₹5,045.78",
+      "gradient": "from-green-400 to-teal-500"
+    },
+    {
+      "id": 4,
+      "holderName": "Charan",
+      "cardNumber": "12/29",
+      "balance": "₹3,650.00",
+      "gradient": "from-yellow-400 to-orange-500"
+    }
+  ],
+  "transactions": [
+    {
+      "id": 1,
+      "title": "Amazon Shopping",
+      "amount": "-₹320.50",
+      "time": "Today, 10:30 AM",
+      "status": "Success"
+    },
+    {
+      "id": 2,
+      "title": "Freelance Income",
+      "amount": "+₹1,200.00",
+      "time": "Yesterday, 3:45 PM",
+      "status": "Success"
+    },
+    {
+      "id": 3,
+      "title": "Netflix Subscription",
+      "amount": "-₹15.99",
+      "time": "May 30, 6:00 PM",
+      "status": "Pending"
+    },
+    {
+      "id": 4,
+      "title": "PayPal Transfer",
+      "amount": "+₹2,150.00",
+      "time": "May 29, 11:15 AM",
+      "status": "Success"
+    },
+    {
+      "id": 5,
+      "title": "Bank Fee",
+      "amount": "-₹50.00",
+      "time": "May 28, 09:00 AM",
+      "status": "Failed"
+    },
+    {
+      "id": 6,
+      "title": "Groceries",
+      "amount": "-₹145.75",
+      "time": "May 27, 4:20 PM",
+      "status": "Success"
+    }
+  ],
+  "reportChart": {
+    "labels": ["Income", "Expense", "Savings"],
+    "percentages": [55, 30, 15],
+    "total": "₹10,286.22"
+  }
+}

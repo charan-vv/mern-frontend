@@ -5,7 +5,10 @@ import PhoneNumber from "./PhoneNumber";
 import Popup from "./Popup";
 import OtpInput from "./OtpInput";
 import Avatar from "./Avatar";
-
+import Cards from "./Card";
+import ChartJs from "./Chartjs";
+import Table from "./Table";
+import Pagination from "./Pagination";
 export  {
     TextInput,
     Button,
@@ -13,5 +16,9 @@ export  {
     PhoneNumber,
     Popup,
     OtpInput,
-    Avatar
+    Avatar,
+    Cards,
+    ChartJs,
+    Table,
+    Pagination
 }

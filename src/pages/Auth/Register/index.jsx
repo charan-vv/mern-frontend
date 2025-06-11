@@ -73,7 +73,7 @@ const Register = () => {
 
 dispatch(SignupAction(payload)).then((res)=>{
   setInfoState((prev) => ({...prev,loader: { ...prev.loader, submit_button: false }}));
-  console.log(res,"res")
+
   if(res?.payload?.code===200){
   toast.success(res?.payload?.message)
   navigate('/login')

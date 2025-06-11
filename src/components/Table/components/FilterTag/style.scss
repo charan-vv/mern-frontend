@@ -1,0 +1,26 @@
+@use "../../../../utils/variables.scss" as var;
+
+.filter-tags-wrapper {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var.$bgColor;
+  gap: 8px;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.custom-filter-tag {
+  border-radius: 8px;
+  padding: 4px 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var.$whiteColor;
+  border: transparent;
+}
+
+.clear-filters-text {
+  color: var.$secondaryColor;
+ 
+}

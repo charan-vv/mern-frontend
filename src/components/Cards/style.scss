@@ -1,0 +1,44 @@
+@use "../../utils/variables.scss" as var;
+
+// style.scss (example additions)
+$card-radius: 1.25rem;
+$card-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+.custom-card {
+  width: 200px;
+  height: 200px; // or any height you want
+  margin: 1rem;
+   box-shadow: $card-shadow;
+  border-radius: $card-radius;
+  border: 1px solid var.$borderColor;
+  background-color: var.$secondaryFoundation;
+  box-shadow: 0 4px 8px rgba(var.$blackColor, 0.05);
+  transition: transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &:hover {
+   transform: scale(1.02);
+    box-shadow: 0 6px 12px rgba(var.$blackColor, 0.1);
+  }
+
+  .ant-card-body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .ant-skeleton {
+    height: 100%;
+  }
+
+  .ant-card-meta-title {
+    color: var.$primaryText;
+  }
+
+  .ant-card-meta-description {
+    color: var.$secondaryText;
+  }
+}
