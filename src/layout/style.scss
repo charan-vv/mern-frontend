@@ -35,7 +35,7 @@
     height: 100vh;
     z-index: 1000;
     transition: width var(--transition-duration) var(--transition-timing);
-    
+
     // Ensure sidebar content doesn't overflow
     overflow: visible;
   }
@@ -58,14 +58,18 @@
 
     // Sidebar expanded state
     &--sidebar-expanded {
-      width: calc(100% - var(--sidebar-expanded-width) - (var(--sidebar-margin) *1));
+      width: calc(
+        100% - var(--sidebar-expanded-width) - (var(--sidebar-margin) * 2)
+      );
       margin-top: 20px;
       margin-left: calc(var(--sidebar-expanded-width) + (var(--sidebar-margin) * 2) );
     }
 
     // Sidebar collapsed state
     &--sidebar-collapsed {
-      width: calc(100% - var(--sidebar-collapsed-width) - (var(--sidebar-margin) * 2));
+      width: calc(
+        100% - var(--sidebar-collapsed-width) - (var(--sidebar-margin) * 2)
+      );
       margin-top: 20px;
       margin-left: calc(var(--sidebar-collapsed-width) + (var(--sidebar-margin) * 3));
     }
@@ -94,7 +98,7 @@
     &::-webkit-scrollbar-thumb {
       background: rgba(0, 0, 0, 0.2);
       border-radius: 3px;
-      
+
       &:hover {
         background: rgba(0, 0, 0, 0.3);
       }
@@ -132,13 +136,13 @@
 @media (max-width: 768px) {
   .app-layout {
     flex-direction: column;
-    
+
     &__sidebar {
       position: fixed;
       transform: translateX(-100%);
       transition: transform var(--transition-duration) ease;
       width: var(--sidebar-expanded-width) !important;
-      
+
       &.mobile-open {
         transform: translateX(0);
       }
@@ -147,7 +151,7 @@
     &__content {
       width: 100% !important;
       margin-left: 0 !important;
-      
+
       &--sidebar-expanded,
       &--sidebar-collapsed {
         width: 100% !important;
@@ -206,11 +210,11 @@
   &--small {
     padding: 10px;
   }
-  
+
   &--medium {
     padding: 20px;
   }
-  
+
   &--large {
     padding: 30px;
   }
@@ -223,7 +227,7 @@
   align-items: center;
   height: 100vh;
   background: #f8fafc;
-  
+
   &__spinner {
     width: 40px;
     height: 40px;
@@ -235,6 +239,10 @@
 }
 
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

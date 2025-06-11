@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use "../utils/variables.scss" as var;
 @use "../utils/base.scss" as base;
 
@@ -7,7 +8,7 @@
   top: 0;
   left: 0;
   height: calc(100vh - 18px);
-  background: linear-gradient(135deg, var.$primaryColor 0%, darken(var.$primaryColor, 10%) 100%);
+  background: linear-gradient(135deg, var.$primaryColor 0%, color.adjust(var.$primaryColor, $lightness: -10%) 100%);
   margin: 20px;
   padding: 15px;
   border-radius: 16px;
@@ -152,7 +153,7 @@
 
     &--active {
       color: var.$primaryText;
-      background: linear-gradient(135deg, var.$secondaryColor 0%, lighten(var.$secondaryColor, 10%) 100%);
+      background: linear-gradient(135deg, var.$secondaryColor 0%, color.adjust(var.$secondaryColor,  $lightness: 10%) 100%);
       transform: translateX(4px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 
@@ -269,7 +270,7 @@
 
       &--active {
         color: var.$primaryText;
-        background: linear-gradient(135deg, var.$secondaryColor 0%, lighten(var.$secondaryColor, 10%) 100%);
+        background: linear-gradient(135deg, var.$secondaryColor 0%, color.adjust(var.$secondaryColor, $lightness: 10%) 100%);
         transform: translateX(3px);
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
         
