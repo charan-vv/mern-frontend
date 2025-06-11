@@ -10,13 +10,13 @@ export const sidebarNavItems = [
     display: "Dashboard",
     icon: <DashboardOutlined />,
     to: "/dashboard",
-    section: "Dashboard"
+    section: "Dashboard",
   },
   {
     display: "Budget",
     icon: <FileTextOutlined />,
     to: "/budget",
-    section: "Budget"
+    section: "Budget",
   },
   {
     display: "Categories",
@@ -44,27 +44,28 @@ export const sidebarNavItems = [
     //   }
     // ]
   },
-   {
+  {
     display: "Reports",
     icon: <FileDoneOutlined />,
     to: "/reports",
-    section: "Reports"
+    section: "Reports",
   },
-    {
-    display: "Settings",
-    icon: <FileDoneOutlined />,
-    to: "/settings",
-    section: "Settings"
-  },
-    {
+  {
     display: "Transcations",
     icon: <FileDoneOutlined />,
     to: "/transcations",
-    section: "Transcations"
+    section: "Transcations",
   },
+  {
+    display: "Settings",
+    icon: <FileDoneOutlined />,
+    to: "/settings",
+    section: "Settings",
+  },
+
   {
     display: "Logout",
     icon: <LogoutOutlined />,
-    section: "Logout"
-  }
+    section: "Logout",
+  },
 ];

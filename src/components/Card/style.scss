@@ -1,0 +1,72 @@
+@use "../../utils/variables.scss" as var;
+
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 188px;
+    height: 186px;
+    align-items: flex-start;
+    border: 1px solid var.$tertiaryBtn;
+    background-color: var.$whiteColor;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.04);
+    padding: 16px;
+    gap: 20px;
+    border-radius: 16px;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 161%;
+      background-color: var(--card-bg-color); // Ensure this CSS variable is defined somewhere
+      clip-path: polygon(3% 100%, 100% 40%, 100% 100%, 10% 100%);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .card-icon {
+      border-radius: 20px;
+      background: #f2f7ff;
+      box-shadow:
+        inset 0px -4px 4px rgba(0, 0, 0, 0.15),
+        inset 0px 4px 4px rgba(0, 0, 0, 0.15);
+
+      &.last {
+        background: #fff8f2;
+        box-shadow:
+          inset 0px -4px 4px rgba(0, 0, 0, 0.15),
+          inset 0px 4px 4px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    .card-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-title {
+      color: var(--Text-color-Secondary-text, var.$secondaryText);
+      font-size: var(--Title-Medium-Size, 16px);
+      font-style: normal;
+      font-weight: 600;
+      line-height: var(--Title-Medium-Line-Height, 24px);
+      letter-spacing: var(--Title-Medium-Tracking, 0.15px);
+    }
+
+    .card-value {
+      color: var(--Text-color-Primary-Text, var.$primaryText);
+      font-family: 'Mulish', sans-serif;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: var(--Headline-Medium-Line-Height, 36px);
+      letter-spacing: var(--Headline-Small-Tracking, 0px);
+    }
+  }

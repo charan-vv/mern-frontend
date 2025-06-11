@@ -60,14 +60,14 @@
     &--sidebar-expanded {
       width: calc(100% - var(--sidebar-expanded-width) - (var(--sidebar-margin) *1));
       margin-top: 20px;
-      margin-left: calc(var(--sidebar-expanded-width) + (var(--sidebar-margin) * 1) );
+      margin-left: calc(var(--sidebar-expanded-width) + (var(--sidebar-margin) * 2) );
     }
 
     // Sidebar collapsed state
     &--sidebar-collapsed {
       width: calc(100% - var(--sidebar-collapsed-width) - (var(--sidebar-margin) * 2));
       margin-top: 20px;
-      margin-left: calc(var(--sidebar-collapsed-width) + (var(--sidebar-margin) * 1.75));
+      margin-left: calc(var(--sidebar-collapsed-width) + (var(--sidebar-margin) * 3));
     }
   }
 
@@ -76,8 +76,9 @@
     flex: 1;
     overflow-y: auto;
     background-color:var.$login_bg;
-    // padding: 20px;
-    border-radius: 8px;
+    padding: 20px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
     // Custom scrollbar
     scrollbar-width: thin;
     scrollbar-color: rgba(0, 0, 0, 0.2) transparent;

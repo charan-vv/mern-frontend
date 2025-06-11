@@ -1,0 +1,73 @@
+@use "../../utils/variables.scss" as var;
+
+.irgo_table_customize {
+    th.custom-text-right {
+      text-align: end !important;
+    }
+    th.custom-text-center {
+      text-align: center !important;
+    }
+    .ant-table-container {
+      overflow: auto;
+      scrollbar-width: none;
+    }
+  
+    .ant-table-container::-webkit-scrollbar {
+      width: 12px;
+    }
+    .ant-table-cell-fix-left {
+      z-index: 2;
+      position: sticky !important;
+    }
+   
+  
+    .ant-table-container::-webkit-scrollbar-track {
+      background: var.$tableBG;
+    }
+  
+    .ant-table-container::-webkit-scrollbar-thumb {
+      background-color:var.$tableBG;
+      background-clip: padding-box;
+      border-radius: 50px !important;
+      border: 4px solid transparent !important;
+      border-radius: 8px !important;
+    }
+  
+    .ant-table-container {
+      overflow: auto;
+    }
+    .ant-table-content{
+      scrollbar-width: none;
+    }
+    th {
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 30px; /* 150% */
+      white-space: nowrap;
+      letter-spacing: var(--Headline-Small-Tracking, 0px);
+      color: var.$whiteColor !important;
+    }
+    tbody {
+      td {
+        font-size: 18px;
+        font-weight: 600;
+        white-space: nowrap;
+        line-height: 30px; /* 150% */
+        letter-spacing: var(--Headline-Small-Tracking, 0px);
+      }
+    }
+  }
+  .irgo_table_customize .ant-table-container {
+    overflow: scroll;
+    // scrollbar-width: none;
+  }
+
+  .hidden_table_customize .ant-table-thead > tr > th {
+    background-color: var.$secondaryColor !important;
+  }
+  
+  .hidden_table_customize {
+    .ant-table-cell {
+      white-space: nowrap;
+    }
+  }
