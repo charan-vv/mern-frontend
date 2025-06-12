@@ -1,0 +1,96 @@
+{
+    "table_head": [
+        {
+            "title": "Date",
+            "dataIndex": "date"
+        },
+        {
+            "title": "Type",
+            "dataIndex": "type"
+        },
+        {
+            "title": "Category",
+            "dataIndex": "category"
+        },
+        {
+            "title": "Amount",
+            "dataIndex": "amount"
+        }
+    ],
+    "table_row": [
+        {
+            "date": "2024-06-10",
+            "type": "Expense",
+            "category": "Groceries",
+            "amount": 120
+        },
+        {
+            "date": "2024-06-10",
+            "type": "Income",
+            "category": "Salary",
+            "amount": 2500
+        },
+        {
+            "date": "2024-06-10",
+            "type": "Expense",
+            "category": "Transportation",
+            "amount": 45
+        },
+        {
+            "date": "2024-06-10",
+            "type": "Expense",
+            "category": "Utilities",
+            "amount": 85
+        },
+        {
+           "date": "2024-06-10",
+            "type": "Income",
+            "category": "Freelance",
+            "amount": 300
+        }
+    ],
+    "fields": [
+        {
+            "field": "date_picker",
+            "label":"Date",
+            "name":"date",
+            "showAsterisk":true
+        },
+         {
+            "field": "auto_complete",
+            "label": "Type",
+            "name": "type",
+            "showAsterisk": true,
+             "options": [
+                 { "label": "Expense", "value": "expense" },
+                 { "label": "Income", "value": "income" }
+            ]
+        },
+        {
+            "field": "auto_complete",
+            "label": "Category",
+            "name": "category",
+            "showAsterisk": true,
+             "options": [
+                 { "label": "Rent", "value": "rent" },
+                 { "label": "Travelling", "value": "travelling" },
+                 { "label": "Stock Market", "value": "stock_market" },
+                 { "label": "House", "value": "house" },
+                 { "label": "Food", "value": "food" }
+            ]
+        },
+        {
+            "field": "textInput",
+            "type": "number",
+            "label": "Amount",
+            "name": "amount",
+            "showAsterisk": true
+        },
+        {
+            "field": "button",
+            "textContent": "Save",
+            "class": "budget_auth_btn",
+            "type": "submit"
+        }
+    ]
+}

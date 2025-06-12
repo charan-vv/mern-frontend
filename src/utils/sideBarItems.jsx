@@ -13,6 +13,12 @@ export const sidebarNavItems = [
     section: "Dashboard",
   },
   {
+    display: "Transcations",
+    icon: <FileDoneOutlined />,
+    to: "/transcations",
+    section: "Transcations",
+  },
+  {
     display: "Budget",
     icon: <FileTextOutlined />,
     to: "/budget",
@@ -50,12 +56,7 @@ export const sidebarNavItems = [
     to: "/reports",
     section: "Reports",
   },
-  {
-    display: "Transcations",
-    icon: <FileDoneOutlined />,
-    to: "/transcations",
-    section: "Transcations",
-  },
+  
   {
     display: "Settings",
     icon: <FileDoneOutlined />,

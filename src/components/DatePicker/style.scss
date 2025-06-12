@@ -1,0 +1,32 @@
+@use "../../utils/variables.scss" as var;
+
+.ant-picker-outlined {
+  border: 1px solid var.$greyColor;
+  &:hover {
+    border-color: var.$borderColor;
+    background-color: var.$whiteColor;
+  }
+}
+
+.ant-picker-outlined {
+  box-shadow: none;
+
+  &:focus-within {
+    box-shadow: none;
+    border-color: var.$greyColor;
+  }
+}
+
+.ant-picker-cell-inner {
+//   background-color: var.$primaryColor;
+  border: none;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+  border: none !important;
+}
+
+.error-border {
+  border: 1px solid red !important;
+  border-radius: 6px; // optional, for consistent style
+}

@@ -8,20 +8,27 @@
         {"category":"Travelling", "amount":300},
         {"category":"Stock Market", "amount":750},
         {"category":"House","amount":1150},
-        {"category":"food" ,"amount":"700"}
+        {"category":"Food" ,"amount":"700"}
        
     ],
     "fields": [
     {
-      "field": "textInput",
+      "field": "auto_complete",
       "label": "Category",
-      "name": "cateogory",
+      "name": "category",
       "type": "text",
-      "showAsterisk": true
+      "showAsterisk": true,
+      "options": [
+      { "label": "Rent", "value": "rent" },
+      { "label": "Travelling", "value": "travelling" },
+      { "label": "Stock Market", "value": "stock_market" },
+      { "label": "House", "value": "house" },
+      { "label": "Food", "value": "food" }
+    ]
     },
     {
       "field": "textInput",
-      "type": "text",
+      "type": "number",
       "label": "Amount",
       "name": "amount",
       "showAsterisk": true
