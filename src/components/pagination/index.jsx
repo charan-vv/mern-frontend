@@ -4,7 +4,7 @@ import { IoMdSkipBackward as SkipPreviousFilled } from "react-icons/io";
 import { GrFormNext as NextIcon } from "react-icons/gr";
 import { IoIosArrowBack as BackIcon } from "react-icons/io";
 
-import "./styles.scss";
+import "./style.scss";
 
 const Pagination = (props) => {
   const { label = false, customHeaderBg = "#b8ff67" } = props;
