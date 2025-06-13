@@ -13,7 +13,7 @@ const Budget = LazyLoad("Budget");
 const Categories = LazyLoad("Categories");
 const Reports = LazyLoad("Reports");
 const Settings = LazyLoad("Settings");
-const Transcations = LazyLoad("Transcations");
+const Transactions = LazyLoad("Transactions");
 
 const isAuthenticated = () => !!localStorage.getItem("token");
 
@@ -31,7 +31,7 @@ const protectedRoutes = [
   { path: "/categories", element: <Categories /> },
   { path: "/reports", element: <Reports /> },
   { path: "/settings", element: <Settings /> },
-  { path: "/transcations", element: <Transcations /> },
+  { path: "/transactions", element: <Transactions /> },
 ];
 
 const RouteComponent = () => (

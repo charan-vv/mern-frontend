@@ -13,10 +13,10 @@ export const sidebarNavItems = [
     section: "Dashboard",
   },
   {
-    display: "Transcations",
+    display: "Transactions",
     icon: <FileDoneOutlined />,
-    to: "/transcations",
-    section: "Transcations",
+    to: "/transactions",
+    section: "Transactions",
   },
   {
     display: "Budget",
