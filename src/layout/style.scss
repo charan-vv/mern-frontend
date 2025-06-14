@@ -61,7 +61,7 @@
       width: calc(
         100% - var(--sidebar-expanded-width) - (var(--sidebar-margin) * 2)
       );
-      margin-top: 20px;
+     
       margin-left: calc(var(--sidebar-expanded-width) + (var(--sidebar-margin) * 2) );
     }
 
@@ -70,7 +70,6 @@
       width: calc(
         100% - var(--sidebar-collapsed-width) - (var(--sidebar-margin) * 2)
       );
-      margin-top: 20px;
       margin-left: calc(var(--sidebar-collapsed-width) + (var(--sidebar-margin) * 3));
     }
   }
@@ -79,7 +78,7 @@
   &__route-container {
     flex: 1;
     overflow-y: auto;
-    background-color:var.$login_bg;
+    background-color:var.$body_bg;
     padding: 20px;
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;

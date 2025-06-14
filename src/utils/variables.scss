@@ -1,8 +1,10 @@
 $login_bg: #c1ebc1;
+$body_bg:#f6f8fa;
+
 
 // Core brand colors
-$primaryColor: #2e8b57;         // Dark forest green
-$secondaryColor: #d7e550;       // Soft coral
+$primaryColor: #191c36;
+$secondaryColor: #32405B ;       // Soft coral
 
 
 // Text colors
@@ -11,6 +13,7 @@ $secondaryText: #4f6f4f;        // Muted green-gray for subtitles or metadata
 $disableText: #9e9e9e;          // Neutral gray for disabled elements
 
 // Button colors
+$primaryBtn:#545ced ;      
 $secondaryBtn: #8fbc8f;         // Light desaturated green
 $tertiaryBtn: #d4d4d4;          // Soft gray for outline/neutral actions
 $filterBtn: #f5f5dc;            // Beige tone to subtly separate filter elements

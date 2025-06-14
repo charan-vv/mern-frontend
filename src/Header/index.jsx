@@ -23,7 +23,9 @@ const Header = () => {
       <div className="flex gap-5">
         <VscSettingsGear className="budget_icons" />
         <IoIosNotificationsOutline className="budget_icons" />
-        <Avatar color="#2e8b57" name={"C"} />
+        <Avatar
+        //  color="#191c36"
+          name={"C"} />
       </div>
     </div>
   );

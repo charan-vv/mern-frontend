@@ -16,7 +16,7 @@ const MainLayout = () => {
     const interval = setInterval(() => {
       const token = localStorage.getItem("token");
       setIsAuthenticated(!!token);
-    }, 100); // small interval to catch token update quickly
+    }, 100); 
 
     return () => clearInterval(interval);
   }, []);

@@ -7,7 +7,7 @@ const CustomAvatar = ({ color, name, src }) => {
 
   return (
     <AntAvatar
-      style={{ backgroundColor: color, verticalAlign: "middle" }}
+      style={{ backgroundColor: color, verticalAlign: "middle",color:"#fff" }}
       size="large"
       src={src}
     >

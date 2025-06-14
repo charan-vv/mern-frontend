@@ -48,13 +48,14 @@ const TableComponent = ({
     [totalDoc, limit]
   );
 
-  if (Array.isArray(dataSource) && dataSource.length === 0 && !hideNoData) {
-    return (
-      <article className="flex items-center justify-center min-h-[60vh] w-full">
-        <Spin />
-      </article>
-    );
-  }
+  // if (Array.isArray(dataSource) && dataSource.length === 0 && !hideNoData) {
+  //   return (
+  //     <article className="flex items-center justify-center min-h-[60vh] w-full">
+  //       {/* <Spin /> */}
+  //       No Data
+  //     </article>
+  //   );
+  // }
 
   return (
     <ConfigProvider
@@ -62,8 +63,8 @@ const TableComponent = ({
         token: {},
         components: {
           Table: {
-            colorBgContainer: customColorBgContainer ?? "#F7F7F7",
-            headerBg: customHeaderBg ?? "#2e8b57;",
+            colorBgContainer: customColorBgContainer ?? "#fff",
+            headerBg: customHeaderBg ?? "#191c36",
             borderColor: "#fff",
             colorText: "#222222",
             headerColor: "#222222",

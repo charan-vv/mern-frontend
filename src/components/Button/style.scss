@@ -14,11 +14,11 @@
   cursor: pointer;
 
   &.primary {
-    background-color: var.$primaryColor;
+    background-color: var.$primaryBtn;
     @include mix.title_medium(var.$whiteColor);
 
     &:hover {
-      background-color: color.adjust(var.$primaryColor, $lightness: 5%);
+      background-color: color.adjust(var.$primaryBtn, $lightness: 5%);
       color: var.$whiteColor;
     }
 

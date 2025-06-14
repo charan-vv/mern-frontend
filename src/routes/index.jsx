@@ -3,17 +3,17 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "../components";
 
 // Lazy loaded pages
-const LazyLoad = (path) => lazy(() => import(`../pages/${path}`));
+
 const PageNotFound = lazy(() => import("../NotFoundPage"));
-const Login = LazyLoad("Auth");
-const Register = LazyLoad("Auth/Register");
-const ForgotPassword = LazyLoad("Auth/ForgotPassword");
-const Dashboard = LazyLoad("Dashboard");
-const Budget = LazyLoad("Budget");
-const Categories = LazyLoad("Categories");
-const Reports = LazyLoad("Reports");
-const Settings = LazyLoad("Settings");
-const Transactions = LazyLoad("Transactions");
+const Login =  lazy(()=>import('../pages/Auth')) 
+const Register = lazy(()=>import('../pages/Auth/Register')) 
+const ForgotPassword = lazy(()=>import('../pages/Auth/ForgotPassword')) 
+const Dashboard = lazy(()=>import('../pages/Dashboard')) 
+const Budget = lazy(()=>import('../pages/Budget')) 
+const Categories = lazy(()=>import('../pages/Categories')) 
+const Reports = lazy(()=>import('../pages/Reports')) ;
+const Settings = lazy(()=>import('../pages/Settings')) ;
+const Transactions = lazy(()=>import('../pages/Transactions')) ;
 
 const isAuthenticated = () => !!localStorage.getItem("token");
 
