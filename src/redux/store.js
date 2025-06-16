@@ -14,13 +14,18 @@ import categories_list_slice from "./feature/Categories";
 // Transaction
 import transaction_list_slice from "./feature/Transactions";
 
+// settings
+
+import user_slice from "./feature/Settings"
+
 
 export default configureStore ({
     reducer:{
         login_store:login_slice,
         budget_list:budget_list_slice,
         categories_list:categories_list_slice,
-        transaction_list:transaction_list_slice
+        transaction_list:transaction_list_slice,
+        user_details:user_slice,
     },
 
     middleware:(getDefaultMiddleware)=>[

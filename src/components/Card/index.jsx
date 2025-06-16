@@ -9,7 +9,7 @@ const Card = ({ title,loading, value, icon, iconWrapperClassName,style }) => {
       {icon &&   <img src={icon} alt={title} />}
       </div>
       <div className="card-details card-content ">
-        <div className="card-title title_medium font-medium">{title}</div>
+        <div className="card-title button-base font-medium">{title}</div>
         <div className="card-value">{value}</div>
       </div>
     </div>

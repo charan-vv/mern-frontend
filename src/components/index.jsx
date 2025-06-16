@@ -11,7 +11,7 @@ import Table from "./Table";
 import Pagination from "./Pagination";
 import AutoComplete from "./AutoComplete";
 import DatePicker from "./DatePicker";
-
+import Tab from "./Tabs";
 
 export  {
     TextInput,
@@ -24,6 +24,7 @@ export  {
     Cards,
     ChartJs,
     Table,
+    Tab,
     Pagination,
     AutoComplete,
     DatePicker
