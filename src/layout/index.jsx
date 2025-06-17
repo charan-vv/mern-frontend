@@ -11,7 +11,6 @@ const MainLayout = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
   const [open, setOpen] = useState(false);
-  const [tourReady, setTourReady] = useState(false);
   const refs = useRef({});
   const setRef = (key) => (el) => {
     if (el) refs.current[key] = el;
@@ -31,23 +30,6 @@ const MainLayout = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      if (
-        refs.current.settings &&
-        refs.current.notification &&
-        refs.current.user
-      ) {
-        setTourReady(true);
-        setOpen(true); // Open only after refs are ready
-      }
-    }, 200);
-
-    return () => clearTimeout(timeout);
-  }, []);
-
 
   return (
     <div className={`app-layout ${!isAuthenticated ? "app-layout--public" : ""}`}>
@@ -75,10 +57,8 @@ const MainLayout = () => {
         </div>
       </main>
 
-{tourReady && (
-        <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
-      )}
-      {/* <Tour open={open} onClose={() => setOpen(false)} steps={steps} /> */}
+      
+       <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </div>
   );
 };

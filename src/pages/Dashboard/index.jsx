@@ -6,10 +6,14 @@ import {
   BalanceCards,
 } from "./components";
 import data from "./data.json";
+// import { useOutletContext } from "react-router-dom";
+
 
 const index = ({route_components_ref}) => {
   const [loading, setLoading] = useState(true);
 
+  // const { route_components_ref } = useOutletContext();
+  
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);

@@ -82,7 +82,7 @@ const MenuItem = ({
         <div
           className={`sidebar__submenu ${
             isExpanded ? "sidebar__submenu--expanded" : "sidebar__submenu--collapsed"
-          } ${isCollapsed ? "sidebar__submenu--popup" : ""}`}
+          }`}
         >
           {item?.children?.map((child, childIndex) => (
             <MenuItem

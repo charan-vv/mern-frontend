@@ -3,15 +3,20 @@ import { useEffect, useRef, useState } from "react";
 import Sidebar from "../sidebar";
 import Header from "../Header";
 import "./style.scss";
+import getTourSteps from "src/utils/Tour";
+import { Tour } from "src/components";
 
 const ProtectedLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
 
 
-  const side_bar_ref=useRef(null)
-  const header_ref= useRef(null)
-  const out_let_ref=useRef(null)
+ const [open, setOpen] = useState(false);
+  const refs = useRef({});
+  const setRef = (key) => (el) => {
+    if (el) refs.current[key] = el;
+  };
+  const steps = getTourSteps(refs);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,7 +37,7 @@ const ProtectedLayout = () => {
       {isAuthenticated && (
         <>
         <aside className="app-layout__sidebar">
-        <Sidebar isCollapsed={isSidebarCollapsed} onToggleCollapse={handleSidebarToggle} />
+        <Sidebar side_bar_ref={setRef("sidebar")} isCollapsed={isSidebarCollapsed} onToggleCollapse={handleSidebarToggle} />
       </aside>
       </>
        )}
@@ -42,13 +47,13 @@ const ProtectedLayout = () => {
           isSidebarCollapsed ? "app-layout__content--sidebar-collapsed" : "app-layout__content--sidebar-expanded"
         }`}
       >
-         {isAuthenticated && <Header />}
+         {isAuthenticated && <Header header_ref={setRef} />}
         <div className="app-layout__route-container">
-          <Outlet />
+         <Outlet context={{ route_components_ref: setRef }} />
         </div>
       </main>
         
-     
+      <Tour open={open} onClose={() => setOpen(false)} steps={steps} />
     </div>
   );
 };
