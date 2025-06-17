@@ -1,7 +1,7 @@
 import { Card, Skeleton } from "antd";
 import { useState } from "react";
 
-const BalanceCards = ({ cards, loading }) => {
+const BalanceCards = ({ route_components_ref,cards, loading }) => {
   const [showAll, setShowAll] = useState(false);
   const [activeCard, setActiveCard] = useState(null);
 
@@ -15,7 +15,7 @@ const BalanceCards = ({ cards, loading }) => {
     <Card className="custom-card !w-[400px] !h-[400px]">
       <Skeleton loading={loading} active>
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-lg font-semibold text-gray-900">Balance Cards</h3>
+          <h3 className="text-lg font-semibold text-gray-900" ref={route_components_ref('balanceCard')}>Balance Cards</h3>
           {cards?.length > 3 && (
             <button
               onClick={() => setShowAll(!showAll)}

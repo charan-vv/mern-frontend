@@ -1,0 +1,14 @@
+{
+    "card_details":[
+
+         {
+            "field":"auto_complete",
+            "label":"Card Type",
+            "name":"card_type",
+             "type": "text",
+            "showAsterisk": true
+        }
+    
+    ]
+       
+}

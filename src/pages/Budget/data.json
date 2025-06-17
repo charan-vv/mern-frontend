@@ -1,7 +1,7 @@
 {
     "table_header": [
-        {"title": "Category","key": "category"},
-        {"title": "Amount","key": "amount"}
+        {"title": "Category","dataIndex": "category_name"},
+        {"title": "Amount","dataIndex": "amount"}
     ],
     "table_data":[
         {"category":"Rent","amount":500},
@@ -18,13 +18,7 @@
       "name": "category",
       "type": "text",
       "showAsterisk": true,
-      "options": [
-      { "label": "Rent", "value": "rent" },
-      { "label": "Travelling", "value": "travelling" },
-      { "label": "Stock Market", "value": "stock_market" },
-      { "label": "House", "value": "house" },
-      { "label": "Food", "value": "food" }
-    ]
+      "options": "category_options"
     },
     {
       "field": "textInput",

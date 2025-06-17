@@ -1,42 +1,74 @@
-import React, { useMemo, useState, useCallback } from 'react'
-import { Table, Popup, TextInput, Button, AutoComplete } from 'src/components'
-import data from "./data.json"
-import { TbEdit } from "react-icons/tb"
-import { MdOutlineDeleteOutline } from "react-icons/md"
-import { Form, Formik } from 'formik'
-import { budgetValidationSchema } from 'src/validations/budget'
-import { useInitialValues } from 'src/helpers/hooks'
+import React, { useMemo, useState, useCallback, useEffect } from "react";
+import { Table, Popup, TextInput, Button, AutoComplete } from "src/components";
+import data from "./data.json";
+import { TbEdit } from "react-icons/tb";
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import { Form, Formik } from "formik";
+import { budgetValidationSchema } from "src/validations/budget";
+import { useInitialValues } from "src/helpers/hooks";
+import {
+  Budget_List_Action,
+  Update_Budget_Action,
+  Create_Budget_Action,
+  Soft_Delete_Action,
+} from "src/redux/actions/Budget";
+import { Category_List_Action } from "src/redux/actions/Categories";
+import { useDispatch, useSelector } from "react-redux";
+import { useToast } from "src/helpers/toaster";
 // Constants for popup types
 const POPUP_TYPES = {
-  FORM: 'form_popup',
-  DELETE: 'delete_popup'
-}
+  FORM: "form_popup",
+  DELETE: "delete_popup",
+};
 
 const FORM_MODES = {
-  ADD: 'add',
-  EDIT: 'edit'
-}
+  ADD: "add",
+  EDIT: "edit",
+};
 
 const Budget = () => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const { budget_list, total } = useSelector((state) => state?.budget_list);
+  const { category_list } = useSelector((state) => state?.categories_list);
   const [infoState, setInfoState] = useState({
     form_popup: {
       popup: false,
       data: {},
-      mode: null 
+      mode: null,
     },
     delete_popup: {
       popup: false,
-      data: {}
+      data: {},
     },
     loader: {
-      save_button: false
+      save_button: false,
+    },
+  });
+
+  const initialValues = useInitialValues(data?.fields);
+
+  useEffect(() => {
+    dispatch(Budget_List_Action());
+    dispatch(Category_List_Action());
+  }, [dispatch]);
+
+  const row_data = budget_list?.map((id) => {
+    {
+      return {
+        ...id,
+        category_name: category_list?.find((list) => list?.uid === id?.category)
+          ?.category_name,
+      };
     }
-  })
+  });
 
-
- const initialValues=  useInitialValues(data?.fields)
-
-
+  const category_options = category_list?.map((category) => {
+    return {
+      label: category?.category_name,
+      value: category?.uid,
+    };
+  });
 
   const onClickRowEdit = useCallback((record) => {
     setInfoState((prev) => ({
@@ -44,11 +76,10 @@ const Budget = () => {
       form_popup: {
         popup: true,
         data: record,
-        mode: FORM_MODES.EDIT
+        mode: FORM_MODES.EDIT,
       },
-    }))
-  }, [])
-
+    }));
+  }, []);
 
   const onClickAddNew = useCallback(() => {
     setInfoState((prev) => ({
@@ -56,11 +87,10 @@ const Budget = () => {
       form_popup: {
         popup: true,
         data: initialValues,
-        mode: FORM_MODES.ADD
+        mode: FORM_MODES.ADD,
       },
-    }))
-  }, [initialValues])
-
+    }));
+  }, [initialValues]);
 
   const handleDeletePopUp = useCallback((record) => {
     setInfoState((prev) => ({
@@ -68,12 +98,11 @@ const Budget = () => {
       delete_popup: {
         popup: true,
         data: {
-          amount: record?.amount,
-          category: record?.category,
+          uid: record?.uid,
         },
       },
-    }))
-  }, [])
+    }));
+  }, []);
 
   const handleClosePopup = useCallback((key) => {
     setInfoState((prev) => ({
@@ -82,40 +111,50 @@ const Budget = () => {
         ...prev[key],
         popup: false,
         data: {},
-        ...(key === POPUP_TYPES.FORM && { mode: null })
+        ...(key === POPUP_TYPES.FORM && { mode: null }),
       },
-    }))
-  }, [])
-
+    }));
+  }, []);
 
   const handleConfirmDelete = useCallback(() => {
-    // Add your delete logic here
-    console.log('Deleting:', infoState.delete_popup.data)
-    
     setInfoState((prev) => ({
       ...prev,
-      loader: { ...prev.loader, save_button: true }
-    }))
-
-    // Simulate API call
-    setTimeout(() => {
+      loader: { ...prev.loader, save_button: true },
+    }));
+    const resetState = () => {
       setInfoState((prev) => ({
         ...prev,
         loader: { ...prev.loader, save_button: false },
-        delete_popup: { popup: false, data: {} }
-      }))
-    }, 1000)
-  }, [infoState.delete_popup.data])
+        delete_popup: { popup: false, data: {} },
+      }));
+    };
 
+    const handleResponse = (res) => {
+      if (res.payload.code === 200) {
+        toast.success(res?.payload?.message);
+        dispatch(Budget_List_Action());
+      } else {
+        toast.error(res?.payload?.message);
+      }
+      resetState();
+    };
+    const uid = infoState.delete_popup.data?.uid;
+    dispatch(Soft_Delete_Action(uid))
+      .then(handleResponse)
+      .catch((error) => {
+        toast.error("Failed to create category");
+        resetState();
+      });
+  }, [infoState.delete_popup.data]);
 
   const columns = useMemo(() => {
-    if (!data?.table_header) return []
+    if (!data?.table_header) return [];
 
     const cols = data.table_header.map((el) => ({
       title: el?.title,
-      dataIndex: el?.key,
-      key: el?.key
-    }))
+      dataIndex: el?.dataIndex,
+      key: el?.dataIndex,
+    }));
 
     cols.push({
       title: "Action",
@@ -128,128 +167,170 @@ const Budget = () => {
             className="cursor-pointer "
             size={18}
             onClick={(e) => {
-              e.stopPropagation()
-              onClickRowEdit(record)
+              e.stopPropagation();
+              onClickRowEdit(record);
             }}
           />
           <MdOutlineDeleteOutline
             className="cursor-pointer "
             size={18}
             onClick={(e) => {
-              e.stopPropagation()
-              handleDeletePopUp(record)
+              e.stopPropagation();
+              handleDeletePopUp(record);
             }}
           />
         </div>
       ),
-    })
+    });
 
-    return cols
-  }, [onClickRowEdit, handleDeletePopUp])
+    return cols;
+  }, [onClickRowEdit, handleDeletePopUp]);
 
-  const handleSubmit = useCallback((values) => {
-    setInfoState((prev) => ({
-      ...prev,
-      loader: { ...prev.loader, save_button: true }
-    }))
-
-    // Add your save logic here
-    console.log('Submitting values:', values)
-
-    // Simulate API call
-    setTimeout(() => {
+  const handleSubmit = useCallback(
+    (values) => {
       setInfoState((prev) => ({
         ...prev,
-        loader: { ...prev.loader, save_button: false },
-        form_popup: { popup: false, data: {}, mode: null }
-      }))
-    }, 1000)
-  }, [])
+        loader: { ...prev.loader, save_button: true },
+      }));
 
+      const resetState = () => {
+        setInfoState((prev) => ({
+          ...prev,
+          loader: { ...prev.loader, save_button: false },
+          form_popup: { popup: false, data: {}, mode: null },
+        }));
+      };
 
-  
+      const handleResponse = (res) => {
+        if (res.payload.code === 200) {
+          toast.success(res?.payload?.message);
+          dispatch(Budget_List_Action());
+        } else {
+          toast.error(res?.payload?.message);
+        }
+        resetState();
+      };
+
+      if (values?.uid) {
+        const payload = {
+          uid: values.uid,
+          amount: values.amount,
+        };
+
+        dispatch(Update_Budget_Action(payload))
+          .then(handleResponse)
+          .catch((error) => {
+            console.error("Update failed:", error);
+            toast.error("Failed to update category");
+            resetState();
+          });
+      } else {
+        // Add new category
+        dispatch(Create_Budget_Action(values))
+          .then(handleResponse)
+          .catch((error) => {
+            toast.error("Failed to create category");
+            resetState();
+          });
+      }
+    },
+    [dispatch]
+  ); // Added dispatch to dependency array
+
   const getFormInitialValues = useCallback(() => {
-    const { mode, data } = infoState.form_popup
-    
+    const { mode, data } = infoState.form_popup;
+
     if (mode === FORM_MODES.EDIT) {
       return {
         ...initialValues,
-        ...data
-      }
+        ...data,
+      };
     }
-    
-    return initialValues
-  }, [initialValues, infoState.form_popup])
 
- 
- 
+    return initialValues;
+  }, [initialValues, infoState.form_popup]);
+
   const getPopupTitle = useCallback(() => {
-    const { mode } = infoState.form_popup
-    return mode === FORM_MODES.EDIT ? "Edit Budget Entry" : "Add New Budget Entry"
-  }, [infoState.form_popup.mode])
+    const { mode } = infoState.form_popup;
+    return mode === FORM_MODES.EDIT
+      ? "Edit Budget Entry"
+      : "Add New Budget Entry";
+  }, [infoState.form_popup.mode]);
 
-  
-  
-  const renderFormFields = useCallback((formikProps) => {
-    const { values, errors, touched, handleChange, handleBlur, setFieldValue } = formikProps
+  const renderFormFields = useCallback(
+    (formikProps) => {
+      const {
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        setFieldValue,
+      } = formikProps;
 
-    return data?.fields?.map((field, index) => {
-      const commonProps = {
-        key: index,
-        name: field?.name,
-        label: field?.label,
-        placeholder: field?.label,
-        showAsterisk: field?.showAsterisk,
-        error: touched[field?.name] && errors[field?.name]
-      }
+      return data?.fields?.map((field, index) => {
+        const commonProps = {
+          name: field?.name,
+          label: field?.label,
+          placeholder: field?.label,
+          showAsterisk: field?.showAsterisk,
+          error: touched[field?.name] && errors[field?.name],
+        };
 
-      switch (field?.field) {
-        case "textInput":
-          return (
-            <TextInput
-              {...commonProps}
-              type={field?.type}
-              value={values[field?.name] || ''}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          )
+        const options =
+          field?.options === "category_options" ? category_options : field?.options;
 
-        case "auto_complete":
-          return (
-            <AutoComplete
-              {...commonProps}
-              options={field?.options}
-              value={values[field?.name]}
-              onChange={(_, options) => {
-                setFieldValue(field?.name, options?.value)
-              }}
-              onBlur={handleBlur}
-            />
-          )
-
-        case "button":
-          return (
-            <div key={index} className="budget_auth_btn_section mt-4">
-              <Button
-                textContent={field?.textContent}
-                className={field?.class}
+        switch (field?.field) {
+          case "textInput":
+            return (
+              <TextInput
+                key={index}
+                {...commonProps}
                 type={field?.type}
-                isLoading={infoState?.loader?.save_button}
+                value={values[field?.name] || ""}
+                onChange={handleChange}
+                onBlur={handleBlur}
               />
-            </div>
-          )
+            );
 
-        default:
-          return null
-      }
-    })
-  }, [infoState?.loader?.save_button])
+          case "auto_complete":
+            return (
+              <AutoComplete
+              key={index} 
+                {...commonProps}
+                options={options}
+                value={values[field?.name]}
+                onChange={(_, options) => {
+                  setFieldValue(field?.name, options?.value);
+                }}
+                onBlur={handleBlur}
+              />
+            );
+
+          case "button":
+            return (
+              <div key={index} className="budget_auth_btn_section mt-4">
+                <Button
+                  textContent={field?.textContent}
+                  className={field?.class}
+                  type={field?.type}
+                  isLoading={infoState?.loader?.save_button}
+                />
+              </div>
+            );
+
+          default:
+            return null;
+        }
+      });
+    },
+    [infoState?.loader?.save_button]
+  );
 
   return (
     <>
       <Table
-        dataSource={data?.table_data || []}
+        dataSource={row_data || []}
         columns={columns}
         hidePagination={true}
         onAddNew={onClickAddNew}
@@ -270,11 +351,7 @@ const Budget = () => {
                 onSubmit={handleSubmit}
                 enableReinitialize={true}
               >
-                {(formikProps) => (
-                  <Form>
-                    {renderFormFields(formikProps)}
-                  </Form>
-                )}
+                {(formikProps) => <Form>{renderFormFields(formikProps)}</Form>}
               </Formik>
             </div>
           </div>
@@ -292,14 +369,11 @@ const Budget = () => {
             <p className="mb-4 text-gray-700">
               Are you sure you want to delete this budget entry?
             </p>
-            <div className="flex justify-around mb-4 p-4 bg-gray-50 rounded">
-              <p><strong>Category:</strong> {infoState.delete_popup.data?.category}</p>
-              <p><strong>Amount:</strong> {infoState.delete_popup.data?.amount}</p>
-            </div>
+
             <div className="flex gap-3 justify-end">
               <Button
                 textContent="Cancel"
-                variant='secondary'
+                variant="secondary"
                 onClick={() => handleClosePopup(POPUP_TYPES.DELETE)}
               />
               <Button
@@ -313,7 +387,7 @@ const Budget = () => {
         </Popup>
       )}
     </>
-  )
-}
+  );
+};
 
-export default Budget
+export default Budget;

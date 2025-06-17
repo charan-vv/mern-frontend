@@ -8,6 +8,7 @@ const MenuItem = ({
   onSubmenuToggle,
   onLogout,
   depth = 0,
+  
 }) => {
   const location = useLocation();
 
@@ -19,6 +20,7 @@ const MenuItem = ({
         onClick={onLogout}
         type="button"
         aria-label="Logout"
+       
       >
         <div className="sidebar__menu-item-icon">
           {item?.icon || <LogoutOutlined />}
@@ -80,7 +82,7 @@ const MenuItem = ({
         <div
           className={`sidebar__submenu ${
             isExpanded ? "sidebar__submenu--expanded" : "sidebar__submenu--collapsed"
-          } ${isCollapsed ? "sidebar__submenu--popup" : ""}`}
+          }`}
         >
           {item?.children?.map((child, childIndex) => (
             <MenuItem

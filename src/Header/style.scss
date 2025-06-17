@@ -1,8 +1,8 @@
 @use '../utils/variables.scss' as var;
 
 .budget_header{
-    padding: 20px;
-    background-color: var.$secondaryColor;
+    padding: 10px;
+    background-color: var.$whiteColor;
     border-top-right-radius: 8px;
     border-top-left-radius: 8px;
     display: flex;

@@ -1,3 +1,5 @@
+@use "../../utils/variables.scss" as var;
+
 .custom-pagination {
     .pagination {
         list-style-type: none;
@@ -34,7 +36,7 @@
         font-size: 14px;
         font-weight: 400;
         width: 20px;
-        color: #000000;
+        color: var.$secondaryColor;
     }
 
     .pagination-item button.disabled {
@@ -45,8 +47,8 @@
     }
 
     .pagination-item .active {
-        background-color: #4c5457;
-        color: #ffffff !important;
+        background-color: var.$primaryColor;
+        color: var.$primaryText !important;
         border-radius: 100px;
         padding: 5px 15px;
         display: flex;

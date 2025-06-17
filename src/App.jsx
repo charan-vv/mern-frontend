@@ -1,6 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { App as AntdApp } from "antd";
 import Layout from "./layout";
+// import Layout from "./routes/routes"
 import store from "./redux/store"
 import { Provider } from "react-redux";
 import "./App.scss";

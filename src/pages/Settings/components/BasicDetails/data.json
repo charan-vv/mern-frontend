@@ -1,0 +1,39 @@
+{
+    "basic_details":[
+    {
+      "field": "textInput",
+      "label": "Name",
+      "name": "name",
+      "type": "text",
+      "showAsterisk": true
+    },
+    {
+      "field": "textInput",
+      "label": "User Name",
+      "name": "user_name",
+      "type": "text",
+      "showAsterisk": true
+    },
+    {
+      "field": "textInput",
+      "label": "Email Id",
+      "name": "email_id",
+      "type": "text",
+      "showAsterisk": true
+    },
+    {
+      "field": "phone_number",
+      "type": "password",
+      "label": "Phone Number",
+      "name": "phone_number",
+      "showAsterisk": true
+    },
+    {
+      "field": "button",
+      "textContent": "Update",
+      "class": "budget_auth_btn",
+      "variant": "primary",
+      "type": "submit"
+    }
+    ]
+}

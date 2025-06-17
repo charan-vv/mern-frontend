@@ -11,12 +11,14 @@ export const sidebarNavItems = [
     icon: <DashboardOutlined />,
     to: "/dashboard",
     section: "Dashboard",
+    roles: ["admin", "user", "manager"],
   },
   {
-    display: "Transcations",
+    display: "Transactions",
     icon: <FileDoneOutlined />,
-    to: "/transcations",
-    section: "Transcations",
+    to: "/transactions",
+    section: "Transactions",
+    
   },
   {
     display: "Budget",
@@ -68,5 +70,6 @@ export const sidebarNavItems = [
     display: "Logout",
     icon: <LogoutOutlined />,
     section: "Logout",
+    roles: ["admin", "user", "manager"],
   },
 ];

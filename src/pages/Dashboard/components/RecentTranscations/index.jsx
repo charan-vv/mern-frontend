@@ -3,7 +3,7 @@ import React from "react";
 import { Tag } from "antd";
 import { Table } from "../../../../components";
 
-const RecentTransactions = ({ transactions, loading }) => {
+const RecentTransactions = ({route_components_ref, transactions, loading }) => {
   const columns = [
     {
       title: "Title",
@@ -38,13 +38,14 @@ const RecentTransactions = ({ transactions, loading }) => {
 
   return (
     <div className="transactions-table">
-      <h3>Recent Transactions</h3>
-      <Table
+      <h3 >Recent Transactions</h3>
+      <Table 
         columns={columns}
         dataSource={transactions}
         hidePagination={true}
         loading={loading}
         isAddNew={false}
+        ref={route_components_ref('transactions')}
       />
     </div>
   );

@@ -8,9 +8,13 @@ const SidebarMenu = ({
   onSubmenuToggle,
   onLogout,
 }) => {
+  const role="admin"
+ 
   return (
     <div className="sidebar__menu">
-      {items?.map((item, index) => (
+      {items
+      // ?.filter((item) => item?.roles?.includes(role))
+      ?.map((item, index) => (
         <MenuItem
           key={item.id || index}
           item={item}

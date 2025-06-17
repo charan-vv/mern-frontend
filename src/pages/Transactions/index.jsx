@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import {
   Table,
   Popup,
@@ -13,6 +13,10 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Form, Formik } from "formik";
 import { transationsValidationSchema } from "src/validations/transcations";
 import { useInitialValues } from "src/helpers/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { Transaction_List_Action,Create_Transaction_Action,Update_Transaction_Action,Soft_Delete_Action } from "src/redux/actions/Transactions";
+import { Category_List_Action } from "src/redux/actions/Categories";
+import { useToast } from "src/helpers/toaster";
 // Constants for popup types
 const POPUP_TYPES = {
   FORM: "form_popup",
@@ -24,7 +28,11 @@ const FORM_MODES = {
   EDIT: "edit",
 };
 
-const Budget = () => {
+const Transactions = () => {
+  const dispatch = useDispatch();
+  const toast =useToast();
+  const { transaction_list, total } = useSelector((state) => state?.transaction_list);
+  const { category_list } = useSelector((state) => state?.categories_list);
   const [infoState, setInfoState] = useState({
     form_popup: {
       popup: false,
@@ -40,7 +48,38 @@ const Budget = () => {
     },
   });
 
+
+
   const initialValues = useInitialValues(data?.fields);
+
+
+
+  const row_data = transaction_list?.map((id) => {
+    return {
+      ...id,
+      date: id?.date.split("T")[0],
+      category_name: category_list?.find((list) => list?.uid === id?.category)
+        ?.category_name,
+    };
+  });
+
+
+
+  const category_options = category_list?.map((category) => {
+    return { 
+      label: category?.category_name, 
+      value: category?.uid 
+    };
+  });
+
+
+
+  useEffect(() => {
+    dispatch(Transaction_List_Action());
+    dispatch(Category_List_Action());
+  }, [dispatch]);
+
+
 
   const onClickRowEdit = useCallback((record) => {
     setInfoState((prev) => ({
@@ -52,7 +91,10 @@ const Budget = () => {
       },
     }));
   }, []);
+  
 
+ 
+ 
   const onClickAddNew = useCallback(() => {
     setInfoState((prev) => ({
       ...prev,
@@ -64,18 +106,23 @@ const Budget = () => {
     }));
   }, [initialValues]);
 
+
+
+
   const handleDeletePopUp = useCallback((record) => {
     setInfoState((prev) => ({
       ...prev,
       delete_popup: {
         popup: true,
         data: {
-          amount: record?.amount,
-          category: record?.category,
+          uid:record?.uid
         },
       },
     }));
   }, []);
+
+
+
 
   const handleClosePopup = useCallback((key) => {
     setInfoState((prev) => ({
@@ -89,29 +136,49 @@ const Budget = () => {
     }));
   }, []);
 
-  const handleConfirmDelete = useCallback(() => {
-    // Add your delete logic here
-    console.log("Deleting:", infoState.delete_popup.data);
 
+
+
+
+  const handleConfirmDelete = useCallback(() => {
     setInfoState((prev) => ({
       ...prev,
       loader: { ...prev.loader, save_button: true },
     }));
-
-    // Simulate API call
-    setTimeout(() => {
+    const resetState = () => {
       setInfoState((prev) => ({
         ...prev,
         loader: { ...prev.loader, save_button: false },
         delete_popup: { popup: false, data: {} },
       }));
-    }, 1000);
+    };
+
+    const handleResponse = (res) => {
+      if (res.payload.code === 200) {
+        toast.success(res?.payload?.message);
+        dispatch(Transaction_List_Action());
+      } else {
+        toast.error(res?.payload?.message);
+      }
+      resetState();
+    };
+    const uid = infoState.delete_popup.data?.uid;
+    dispatch(Soft_Delete_Action(uid))
+      .then(handleResponse)
+      .catch((error) => {
+        toast.error("Failed to create category");
+        resetState();
+      });
   }, [infoState.delete_popup.data]);
 
-  const columns = useMemo(() => {
-    if (!data?.table_head) return [];
 
-    const cols = data?.table_head?.map((el) => ({
+
+
+
+  const columns = useMemo(() => {
+    if (!data?.table_header) return [];
+
+    const cols = data?.table_header?.map((el) => ({
       title: el?.title,
       dataIndex: el?.dataIndex,
       key: el?.dataIndex,
@@ -147,24 +214,69 @@ const Budget = () => {
     return cols;
   }, [onClickRowEdit, handleDeletePopUp]);
 
-  const handleSubmit = useCallback((values) => {
-    setInfoState((prev) => ({
-      ...prev,
-      loader: { ...prev.loader, save_button: true },
-    }));
 
-    // Add your save logic here
-    console.log("Submitting values:", values);
 
-    // Simulate API call
-    setTimeout(() => {
+
+
+const handleSubmit = useCallback(
+    (values) => {
       setInfoState((prev) => ({
         ...prev,
-        loader: { ...prev.loader, save_button: false },
-        form_popup: { popup: false, data: {}, mode: null },
+        loader: { ...prev.loader, save_button: true },
       }));
-    }, 1000);
-  }, []);
+
+      const resetState = () => {
+        setInfoState((prev) => ({
+          ...prev,
+          loader: { ...prev.loader, save_button: false },
+          form_popup: { popup: false, data: {}, mode: null },
+        }));
+      };
+
+      const handleResponse = (res) => {
+        if (res.payload.code === 200) {
+          toast.success(res?.payload?.message);
+          dispatch(Transaction_List_Action());
+        } else {
+          toast.error(res?.payload?.message);
+        }
+        resetState();
+      };
+
+      if (values?.uid) {
+        const payload = {
+          uid: values.uid,
+         date:values?.date,
+         type:values?.type,
+         category:values?.category,
+         item:values?.item,
+         amount:values?.amount
+        };
+       
+        dispatch(Update_Transaction_Action(payload))
+          .then(handleResponse)
+          .catch((error) => {
+            console.error("Update failed:", error);
+            toast.error("Failed to update Transcation");
+            resetState();
+          });
+      } else {
+        // Add new category
+  
+        dispatch(Create_Transaction_Action(values))
+          .then(handleResponse)
+          .catch((error) => {
+            toast.error("Failed to create Transaction");
+            resetState();
+          });
+      }
+    },
+    [dispatch]
+  ); 
+
+
+
+
 
   const getFormInitialValues = useCallback(() => {
     const { mode, data } = infoState.form_popup;
@@ -179,12 +291,19 @@ const Budget = () => {
     return initialValues;
   }, [initialValues, infoState.form_popup]);
 
+
+
+
   const getPopupTitle = useCallback(() => {
     const { mode } = infoState.form_popup;
     return mode === FORM_MODES.EDIT
-      ? "Edit Budget Entry"
-      : "Add New Budget Entry";
+      ? "Edit Transaction Entry"
+      : "Add New Transaction Entry";
   }, [infoState.form_popup.mode]);
+
+
+
+
 
   const renderFormFields = useCallback(
     (formikProps) => {
@@ -195,6 +314,7 @@ const Budget = () => {
         handleChange,
         handleBlur,
         setFieldValue,
+        setFieldTouched,
       } = formikProps;
 
       return data?.fields?.map((field, index) => {
@@ -205,6 +325,9 @@ const Budget = () => {
           placeholder: field?.label,
           showAsterisk: field?.showAsterisk,
         };
+         const options =
+          field?.options === "category_options" ? category_options : field?.options;
+
 
         switch (field?.field) {
           case "date_picker":
@@ -237,7 +360,7 @@ const Budget = () => {
             return (
               <AutoComplete
                 {...commonProps}
-                options={field?.options}
+                options={options}
                 value={values[field?.name]}
                 onChange={(_, options) => {
                   setFieldValue(field?.name, options?.value);
@@ -266,11 +389,13 @@ const Budget = () => {
     },
     [infoState?.loader?.save_button]
   );
+  
 
+   
   return (
     <>
       <Table
-        dataSource={data?.table_row || []}
+        dataSource={row_data || []}
         columns={columns}
         hidePagination={true}
         onAddNew={onClickAddNew}
@@ -330,4 +455,4 @@ const Budget = () => {
   );
 };
 
-export default Budget;
+export default Transactions;

@@ -42,19 +42,21 @@ const TableComponent = ({
   isPdfDisable, //download button dissabled
   // dropdownItems,
   onDropdownClick,
+  ref,
 }) => {
   const totalPages = useMemo(
     () => Math.ceil(totalDoc / limit),
     [totalDoc, limit]
   );
 
-  if (Array.isArray(dataSource) && dataSource.length === 0 && !hideNoData) {
-    return (
-      <article className="flex items-center justify-center min-h-[60vh] w-full">
-        <Spin />
-      </article>
-    );
-  }
+  // if (Array.isArray(dataSource) && dataSource.length === 0 && !hideNoData) {
+  //   return (
+  //     <article className="flex items-center justify-center min-h-[60vh] w-full">
+  //       {/* <Spin /> */}
+  //       No Data
+  //     </article>
+  //   );
+  // }
 
   return (
     <ConfigProvider
@@ -62,8 +64,8 @@ const TableComponent = ({
         token: {},
         components: {
           Table: {
-            colorBgContainer: customColorBgContainer ?? "#F7F7F7",
-            headerBg: customHeaderBg ?? "#2e8b57;",
+            colorBgContainer: customColorBgContainer ?? "#fff",
+            headerBg: customHeaderBg ?? "#191c36",
             borderColor: "#fff",
             colorText: "#222222",
             headerColor: "#222222",
@@ -101,7 +103,7 @@ const TableComponent = ({
           />
         )}
 
-        <div className="table-wrapper ">
+        <div  ref={ref} className="table-wrapper ">
           <Table
             dataSource={dataSource}
             columns={columns}
@@ -112,6 +114,7 @@ const TableComponent = ({
             expandable={expandableConfig}
             rowKey="uid"
             scroll={{ x: "max-content" }}
+           
           />
           {isBottmBlk && (
             <>

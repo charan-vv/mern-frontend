@@ -1,4 +1,4 @@
-@use 'sass:color';
+@use "sass:color";
 @use "../utils/variables.scss" as var;
 @use "../utils/base.scss" as base;
 
@@ -7,11 +7,13 @@
   position: fixed;
   top: 0;
   left: 0;
-  height: calc(100vh - 18px);
-  background: linear-gradient(135deg, var.$primaryColor 0%, color.adjust(var.$primaryColor, $lightness: -10%) 100%);
-  margin: 20px;
+  height: calc(100vh);
+  background: linear-gradient(
+    135deg,
+    var.$primaryColor 0%,
+    color.adjust(var.$primaryColor, $lightness: -10%) 100%
+  );
   padding: 15px;
-  border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
@@ -20,6 +22,7 @@
   align-items: center;
   border: 1px solid rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+
   // Menu parent container
   &__menu-parent {
     cursor: pointer;
@@ -29,15 +32,19 @@
     margin-bottom: 4px;
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.05);
+      // background-color: rgba(255, 255, 255, 0.05);
     }
 
     &--active,
     &--expanded {
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      background: linear-gradient(
+        135deg,
+        var.$secondaryColor 0%,
+        color.adjust(var.$secondaryColor, $lightness: -10%) 100%
+      );
       padding-bottom: 8px;
       margin: 8px 0;
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+      // box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
     }
   }
 
@@ -45,13 +52,13 @@
   &__menu-item-text,
   &__menu-item-arrow {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     &--visible {
       opacity: 1;
       transform: translateX(0);
       display: block;
     }
-    
+
     &--hidden {
       opacity: 0;
       transform: translateX(-10px);
@@ -72,7 +79,7 @@
     &-content {
       // display: flex;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      
+
       &--expanded {
         opacity: 1;
         transform: translateX(0) scale(1);
@@ -122,7 +129,7 @@
     &::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.3);
       border-radius: 2px;
-      
+
       &:hover {
         background: rgba(255, 255, 255, 0.5);
       }
@@ -136,7 +143,7 @@
     padding: 14px 16px;
     font-size: 0.95rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(180, 179, 179, 0.9);
     position: relative;
     margin: 0 0 6px;
     border-radius: 10px;
@@ -145,20 +152,31 @@
     text-decoration: none;
 
     &:hover {
-       color: var.$whiteColor;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+      color: var.$whiteColor;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.05) 100%
+      );
       transform: translateX(4px);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      .sidebar__menu-item-icon {
+        color: var.$whiteColor;
+      }
     }
 
     &--active {
-      color: var.$primaryText;
-      background: linear-gradient(135deg, var.$secondaryColor 0%, color.adjust(var.$secondaryColor,  $lightness: 10%) 100%);
+      color: var.$whiteColor;
+      background: linear-gradient(
+        135deg,
+        var.$secondaryColor 0%,
+        color.adjust(var.$secondaryColor, $lightness: 10%) 100%
+      );
       transform: translateX(4px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 
       .sidebar__menu-item-icon {
-        color: var.$primaryText;
+        color: var.$whiteColor;
       }
     }
 
@@ -209,7 +227,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 
       &::before {
-        content: '';
+        content: "";
         position: absolute;
         right: 100%;
         top: 50%;
@@ -233,25 +251,15 @@
     &--collapsed {
       max-height: 0;
       opacity: 0;
+      
+     
     }
-
-    &--popup {
-      position: absolute;
-      left: 100%;
-      top: 0;
-      background: var.$primaryColor;
-      border-radius: 10px;
-      box-shadow: 8px 8px 25px rgba(0, 0, 0, 0.25);
-      min-width: 200px;
-      z-index: 1001;
-      padding: 8px;
-    }
-
+  
     &-item {
       display: flex;
       align-items: center;
       padding: 10px 16px;
-      color: rgba(255, 255, 255, 0.8);
+      color: var.$disableText;
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
@@ -261,19 +269,28 @@
       margin: 2px 0;
       margin-left: 20px;
 
-      &:hover {   
-        background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      &:hover {
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.1) 0%,
+          rgba(255, 255, 255, 0.05) 100%
+        );
         color: var.$whiteColor;
         transform: translateX(3px);
-        margin-right: 15px;
       }
 
       &--active {
-        color: var.$primaryText;
-        background: linear-gradient(135deg, var.$secondaryColor 0%, color.adjust(var.$secondaryColor, $lightness: 10%) 100%);
+        color: var.$whiteColor;
+        background: linear-gradient(
+          135deg,
+          var.$secondaryColor 0%,
+          color.adjust(var.$secondaryColor, $lightness: 10%) 100%
+        );
         transform: translateX(3px);
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
-        
+        &-icon {
+          color: var.$whiteColor;
+        }
       }
 
       &-icon {
@@ -284,6 +301,7 @@
         opacity: 0.8;
         margin-right: 10px;
         min-width: 16px;
+        // color: yellow ;
       }
 
       &-text {
@@ -307,13 +325,13 @@
     transition: all 0.3s ease;
     font-size: 0.95rem;
     font-weight: 500;
-   
+
     &:hover {
-       color: var.$whiteColor;
+      color: var.$whiteColor;
       //  background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
-       transform: translateX(4px);
+      transform: translateX(4px);
       //  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-       margin: 0 0 6px;
+      margin: 0 0 6px;
     }
 
     .sidebar__menu-item-icon {
@@ -334,9 +352,15 @@
   }
 
   &__toggle {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    position: absolute;
+    right: -12px;
+    top: 77px;
+    border-radius: 50% !important;
+    background-color: var.$primaryBtn;
+   border: 2px solid var.$whiteColor;
+   border-right: transparent !important;
     color: var.$whiteColor;
+    
     cursor: pointer;
     padding: 10px;
     display: flex;
@@ -345,9 +369,16 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    .collapse-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+    .collapse-icon.rotated {
+      transform: rotate(180deg);
+    }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: var.$hoverPrimary;
       transform: scale(1.05);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
@@ -426,7 +457,7 @@
       right: 8px;
       width: 6px;
       height: 6px;
-      background-color: var.$secondaryColor;
+      background-color: var.$primaryBtn;
       border-radius: 50%;
       animation: pulse-indicator 2s infinite;
     }
@@ -455,7 +486,7 @@
     &--expanded,
     &--collapsed {
       transform: translateX(-100%);
-      
+
       &.sidebar--mobile-open {
         transform: translateX(0);
       }
@@ -467,7 +498,7 @@
   .sidebar {
     margin: 10px;
     height: calc(100vh - 20px);
-    
+
     &--expanded {
       width: calc(#{base.$side_bar_width} - 20px);
     }

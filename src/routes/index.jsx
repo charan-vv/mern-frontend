@@ -3,17 +3,17 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Loader } from "../components";
 
 // Lazy loaded pages
-const LazyLoad = (path) => lazy(() => import(`../pages/${path}`));
+
 const PageNotFound = lazy(() => import("../NotFoundPage"));
-const Login = LazyLoad("Auth");
-const Register = LazyLoad("Auth/Register");
-const ForgotPassword = LazyLoad("Auth/ForgotPassword");
-const Dashboard = LazyLoad("Dashboard");
-const Budget = LazyLoad("Budget");
-const Categories = LazyLoad("Categories");
-const Reports = LazyLoad("Reports");
-const Settings = LazyLoad("Settings");
-const Transcations = LazyLoad("Transcations");
+const Login =  lazy(()=>import('../pages/Auth')) 
+const Register = lazy(()=>import('../pages/Auth/Register')) 
+const ForgotPassword = lazy(()=>import('../pages/Auth/ForgotPassword')) 
+const Dashboard = lazy(()=>import('../pages/Dashboard')) 
+const Budget = lazy(()=>import('../pages/Budget')) 
+const Categories = lazy(()=>import('../pages/Categories')) 
+const Reports = lazy(()=>import('../pages/Reports')) ;
+const Settings = lazy(()=>import('../pages/Settings')) ;
+const Transactions = lazy(()=>import('../pages/Transactions')) ;
 
 const isAuthenticated = () => !!localStorage.getItem("token");
 
@@ -31,19 +31,24 @@ const protectedRoutes = [
   { path: "/categories", element: <Categories /> },
   { path: "/reports", element: <Reports /> },
   { path: "/settings", element: <Settings /> },
-  { path: "/transcations", element: <Transcations /> },
+  { path: "/transactions", element: <Transactions /> },
 ];
 
-const RouteComponent = () => (
+const RouteComponent = ({route_components_ref}) => (
  <Suspense fallback={<Loader />}>
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       {publicRoutes?.map(({ path, element }) => (
         <Route key={path} path={path} element={<PublicRoute>{element}</PublicRoute>} />
       ))}
-      {protectedRoutes?.map(({ path, element }) => (
-        <Route key={path} path={path} element={<ProtectedRoute>{element}</ProtectedRoute>} />
-      ))}
+      {protectedRoutes?.map(({ path, element }) => {
+        const tour_reference = React.cloneElement(element, {route_components_ref,});
+        return(
+          (
+        <Route key={path} path={path} element={<ProtectedRoute>{tour_reference}</ProtectedRoute>} />
+      )
+        )
+      })}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   </Suspense>

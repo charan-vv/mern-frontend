@@ -14,11 +14,11 @@
   cursor: pointer;
 
   &.primary {
-    background-color: var.$primaryColor;
-    @include mix.title_medium(var.$whiteColor);
+    background-color: var.$primaryBtn;
+    @include mix.button-base(var.$whiteColor);
 
     &:hover {
-      background-color: color.adjust(var.$primaryColor, $lightness: 5%);
+      background-color: var.$hoverPrimary;
       color: var.$whiteColor;
     }
 
@@ -32,7 +32,7 @@
   &.secondary {
     background-color: var.$whiteColor;
     border: 1px solid var.$primaryText;
-    @include mix.title_medium(var.$primaryText);
+    @include mix.button-base(var.$primaryText);
 
     &:hover {
       background-color: var.$primaryText;
@@ -54,7 +54,7 @@
   &.tertiary {
     background-color: var.$whiteColor;
     border: 1px solid var.$tertiaryBtn;
-    @include mix.title_medium(var.$primaryText);
+    @include mix.button-base(var.$primaryText);
 
     &:hover {
       background-color: var.$primaryColor;
@@ -76,7 +76,7 @@
   &.sortBtn {
     background-color: var.$whiteColor;
     border: 1px solid var.$primaryText;
-    @include mix.title_medium(var.$primaryText);
+    @include mix.button-base(var.$primaryText);
 
     // &:hover {
     //   background-color: var.$primaryText;
@@ -92,7 +92,7 @@
 
   &.filterBtn {
     background-color: var.$filterBtn;
-    @include mix.title_medium(var.$whiteColor);
+    @include mix.button-base(var.$whiteColor);
     color: var.$whiteColor;
     &:hover {
       opacity: 0.9;
@@ -108,7 +108,7 @@
 
   &.clearFilterBtn {
     background-color: transparent;
-    @include mix.title_medium(var.$secondaryColor);
+    @include mix.button-base(var.$secondaryColor);
 
     &:hover {
       background-color: transparent;

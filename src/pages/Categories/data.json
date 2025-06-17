@@ -1,0 +1,29 @@
+{
+    "table_header": [
+        {"title": "Category","dataIndex": "category_name"}
+    ],
+    "table_data":[
+        {"category":"Rent"},
+        {"category":"Travelling"},
+        {"category":"Stock Market"},
+        {"category":"House"},
+        {"category":"Food"}
+       
+    ],
+    "fields": [
+    
+    {
+      "field": "textInput",
+      "type": "text",
+      "label": "Category",
+      "name": "category_name",
+      "showAsterisk": true
+    },
+    {
+      "field": "button",
+      "textContent": "Save",
+      "class": "budget_auth_btn",
+      "type": "submit"
+    }
+  ]
+}
