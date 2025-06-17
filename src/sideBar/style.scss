@@ -9,10 +9,10 @@
   left: 0;
   height: calc(100vh);
   background: linear-gradient(135deg, var.$primaryColor 0%, color.adjust(var.$primaryColor, $lightness: -10%) 100%);
-  margin-right: 20px;
-  margin-left: 20px;
+  // margin-right: 20px;
+  // margin-left: 20px;
   padding: 15px;
-  border-radius: 8px;
+  // border-radius: 8px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
@@ -346,6 +346,13 @@
     border-radius: 8px;
     transition: all 0.3s ease;
     backdrop-filter: blur(10px);
+    .collapse-icon {
+      transition: transform 0.3s ease;
+      display: inline-block;
+    }
+    .collapse-icon.rotated {
+      transform: rotate(180deg);
+    }
 
     &:hover {
       background: rgba(255, 255, 255, 0.2);

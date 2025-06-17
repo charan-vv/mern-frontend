@@ -3,18 +3,26 @@ import { Cards } from "../../../../components";
 import "./style.scss"
 
 
-const DashboardCard = ({cardData,loading}) => {
- 
+const DashboardCard = ({route_components_ref,cardData,loading}) => {
+  {console.log(route_components_ref,"route_components_ref")}
   return (
     <div className="dashboard-card-container">
       {(loading ? [...Array(cardData?.length)] : cardData)?.map((item, index) => (
-        <Cards
+        <>
+        
+        <div 
+         
+        >
+          <Cards
           key={item?.id || index}
+          ref={route_components_ref && item?.ref ? route_components_ref(item.ref) : null}
           loading={loading}
           title={item?.title}
           value={item?.description}
-           style={{ "--card-bg-color": item?.bgColor }}
+          style={{ "--card-bg-color": item?.bgColor }}
         />
+        </div>
+        </>
       ))}
     </div>
   );

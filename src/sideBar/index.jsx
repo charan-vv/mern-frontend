@@ -10,7 +10,7 @@ import "./style.scss";
 import { useDispatch } from "react-redux";
 import { logout_success } from "../redux/feature/auth";
 
-const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
+const Sidebar = ({ isCollapsed, onToggleCollapse ,side_bar_ref }) => {
   const sidebarRef = useRef();
   const { expandedItems, activeSubmenu, toggleSubmenu } = useSidebarState(sidebarNavItems);
   const { handleMouseEnter, handleMouseLeave } = useSidebarHover(onToggleCollapse);
@@ -26,18 +26,19 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
 
   const handleToggleClick = () => {
     onToggleCollapse(!isCollapsed);
+    console.log("hettied")
   };
 
   return (
     <nav
       ref={sidebarRef}
-      onMouseEnter={() => handleMouseEnter(isCollapsed)}
-      onMouseLeave={handleMouseLeave}
+      // onMouseEnter={() => handleMouseEnter(isCollapsed)}
+      // onMouseLeave={handleMouseLeave}
       className={`sidebar ${isCollapsed ? "sidebar--collapsed" : "sidebar--expanded"}`}
       role="navigation"
       aria-label="Main navigation"
     >
-      <SidebarLogo isCollapsed={isCollapsed} />
+      <SidebarLogo    side_bar_ref={side_bar_ref} isCollapsed={isCollapsed} />
       
       <SidebarMenu
         items={sidebarNavItems}
@@ -47,10 +48,10 @@ const Sidebar = ({ isCollapsed, onToggleCollapse }) => {
         onLogout={handleLogout}
       />
       
-      {/* <SidebarToggle 
+      <SidebarToggle 
         isCollapsed={isCollapsed} 
         onToggle={handleToggleClick} 
-      /> */}
+      />
     </nav>
   );
 };

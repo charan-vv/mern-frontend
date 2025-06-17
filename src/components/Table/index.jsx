@@ -42,6 +42,7 @@ const TableComponent = ({
   isPdfDisable, //download button dissabled
   // dropdownItems,
   onDropdownClick,
+  ref,
 }) => {
   const totalPages = useMemo(
     () => Math.ceil(totalDoc / limit),
@@ -102,7 +103,7 @@ const TableComponent = ({
           />
         )}
 
-        <div className="table-wrapper ">
+        <div  ref={ref} className="table-wrapper ">
           <Table
             dataSource={dataSource}
             columns={columns}
@@ -113,6 +114,7 @@ const TableComponent = ({
             expandable={expandableConfig}
             rowKey="uid"
             scroll={{ x: "max-content" }}
+           
           />
           {isBottmBlk && (
             <>

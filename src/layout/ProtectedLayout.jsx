@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Sidebar from "../sidebar";
 import Header from "../Header";
 import "./style.scss";
@@ -7,6 +7,11 @@ import "./style.scss";
 const ProtectedLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem("token"));
+
+
+  const side_bar_ref=useRef(null)
+  const header_ref= useRef(null)
+  const out_let_ref=useRef(null)
 
   useEffect(() => {
     const interval = setInterval(() => {

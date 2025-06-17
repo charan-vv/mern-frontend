@@ -34,16 +34,21 @@ const protectedRoutes = [
   { path: "/transactions", element: <Transactions /> },
 ];
 
-const RouteComponent = () => (
+const RouteComponent = ({route_components_ref}) => (
  <Suspense fallback={<Loader />}>
     <Routes>
       <Route path="/" element={<Navigate to="/dashboard" replace />} />
       {publicRoutes?.map(({ path, element }) => (
         <Route key={path} path={path} element={<PublicRoute>{element}</PublicRoute>} />
       ))}
-      {protectedRoutes?.map(({ path, element }) => (
-        <Route key={path} path={path} element={<ProtectedRoute>{element}</ProtectedRoute>} />
-      ))}
+      {protectedRoutes?.map(({ path, element }) => {
+        const tour_reference = React.cloneElement(element, {route_components_ref,});
+        return(
+          (
+        <Route key={path} path={path} element={<ProtectedRoute>{tour_reference}</ProtectedRoute>} />
+      )
+        )
+      })}
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   </Suspense>

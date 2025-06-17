@@ -1,10 +1,9 @@
 import { DoubleLeftOutlined } from "@ant-design/icons";
 
-const SidebarToggle = ({ isCollapsed, onToggleCollapse }) => {
+const SidebarToggle = ({ isCollapsed, onToggle }) => {
+  
   const handleToggle = () => {
-    if (typeof onToggleCollapse === 'function') {
-      onToggleCollapse(!isCollapsed);
-    }
+    onToggle(!isCollapsed);
   };
 
   return (

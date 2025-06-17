@@ -7,7 +7,7 @@ import {
 } from "./components";
 import data from "./data.json";
 
-const index = () => {
+const index = ({route_components_ref}) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,11 +21,12 @@ const index = () => {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
 
         <div className="md:col-span-6">
-           <DashboardCard cardData={data?.cards} loading={loading} />
+         
+           <DashboardCard route_components_ref={route_components_ref} cardData={data?.cards} loading={loading} />
         </div>
 
         <div className="md:col-span-6">
-          <BalanceCards loading={loading} cards={data?.balanceCards} />
+          <BalanceCards route_components_ref={route_components_ref} loading={loading} cards={data?.balanceCards} />
         </div>
       </div>
      
@@ -34,6 +35,7 @@ const index = () => {
 
         <div className="md:col-span-8">
           <DashboardTranscations
+          route_components_ref={route_components_ref}
             loading={loading}
             transactions={data?.transactions}
           />
