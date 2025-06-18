@@ -1,0 +1,33 @@
+@use "../../../../utils/variables.scss" as var;
+
+.add_new_block{
+     display: flex;
+    justify-content: end;
+    span{
+
+        cursor: pointer;
+        color: var.$primaryBtn;
+       
+        font-weight: 600
+    }
+
+}
+
+.scrollable-form-section {
+  max-height: 306px;
+  overflow-y: auto;
+  padding-right: 10px;
+
+  // Optional: for a nice custom scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: #ccc transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 4px;
+  }
+}

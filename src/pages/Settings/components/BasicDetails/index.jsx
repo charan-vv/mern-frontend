@@ -29,7 +29,6 @@ const index = () => {
   }
 
   const initialValues = useMemo(() => {
-    if (!user) return null;
     return {
       name: user?.name || '',
       user_name: user?.user_name || '',
@@ -38,10 +37,11 @@ const index = () => {
     };
   }, [user]);
   
-
+  
   return (
     <>
-      <Formik initialValues={initialValues}validationSchema={basicDetailsValidationSchema}onSubmit={handleSubmit}>
+     <div className='bg-white p-5'>
+       <Formik initialValues={initialValues}validationSchema={basicDetailsValidationSchema}onSubmit={handleSubmit}   enableReinitialize={true}>
               {({ values,errors,touched,handleChange,handleBlur}) => (
                   <Form>
                         <h2 className="text-2xl font-bold mb-6">Basic Details</h2>
@@ -67,6 +67,7 @@ const index = () => {
                   </Form>
               )}
       </Formik>
+     </div>
     </>
   )
 }

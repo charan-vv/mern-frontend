@@ -1,0 +1,46 @@
+{
+    "account_details":[
+    {
+      "field": "textInput",
+      "label": "Account number",
+      "name": "account_number",
+      "type": "number",
+      "showAsterisk": true
+    },
+    {
+      "field": "auto_complete",
+      "label": "Account Type",
+      "name": "user_name",
+      "showAsterisk": true,
+      "options": "account_type"
+    },
+    {
+      "field": "textInput",
+      "label": "IFSC Number ",
+      "name": "ifsc_number",
+      "type": "text",
+      "showAsterisk": true
+    },
+    {
+      "field": "textInput",
+      "label": "Bank Name",
+      "name": "bank_name",
+      "type": "text",
+      "showAsterisk": true
+    },
+     {
+      "field": "textInput",
+      "label": "Branch Name",
+      "name": "branch_name",
+      "type": "text",
+      "showAsterisk": true
+    },
+    {
+      "field": "button",
+      "textContent": "Update",
+      "class": "budget_auth_btn",
+      "variant": "primary",
+      "type": "submit"
+    }
+    ]
+}

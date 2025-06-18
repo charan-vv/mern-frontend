@@ -23,3 +23,26 @@ export const basicDetailsValidationSchema = Yup.object({
   }),
 
 });
+
+
+export const bankValidationSchema = Yup.object().shape({
+  account_details: Yup.array().of(
+    Yup.object().shape({
+      account_number: Yup.number()
+        .typeError("Account number must be a number")
+        .required("Account number is required"),
+
+      user_name: Yup.string()
+        .required("Account Type is required"),
+
+      ifsc_number: Yup.string()
+        .required("IFSC Number is required"),
+
+      bank_name: Yup.string()
+        .required("Bank Name is required"),
+
+      branch_name: Yup.string()
+        .required("Branch Name is required"),
+    })
+  ),
+});

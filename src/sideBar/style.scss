@@ -354,12 +354,13 @@
   &__toggle {
     position: absolute;
     right: -12px;
-    top: 3px;
+    top: 77px;
     border-radius: 50% !important;
     background-color: var.$primaryBtn;
-    // background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+   border: 2px solid var.$whiteColor;
+   border-right: transparent !important;
     color: var.$whiteColor;
+    
     cursor: pointer;
     padding: 10px;
     display: flex;

@@ -62,3 +62,12 @@ label {
   height: 50px;
   cursor: base.$cursor_pointer;
 }
+
+.sticky-footer{
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    text-align: center;
+    align-items: center;
+    z-index: 1000;
+}

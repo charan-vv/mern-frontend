@@ -5,22 +5,17 @@ export const formatTimer = (seconds) => {
 };
 
 export const useInitialValues = (data, defaultValue = "") => {
-  const initialValues = ()=>{
-     if (!data || !Array.isArray(data)) {
-      return {};
-    }
-
-    return data?.reduce((acc, field) => {
-      if (field?.name) {
-        acc[field.name] = field.defaultValue ?? defaultValue;
-      }
-      return acc;
-    }, {});
+  if (!data || !Array.isArray(data)) {
+    return {};
   }
 
-  return initialValues;
+  return data.reduce((acc, field) => {
+    if (field?.name) {
+      acc[field.name] = field.defaultValue ?? defaultValue;
+    }
+    return acc;
+  }, {});
 };
-
 
 
 export const convertToISO =(dateString)=> {

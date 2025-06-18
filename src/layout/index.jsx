@@ -5,6 +5,7 @@ import Header from "../Header";
 import "./style.scss";
 import { Tour } from "src/components";
 import getTourSteps from "src/utils/Tour";
+import SpinnerComponent from "src/components/Spinner";
 
 const MainLayout = () => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
@@ -12,6 +13,8 @@ const MainLayout = () => {
 
   const [open, setOpen] = useState(false);
   const refs = useRef({});
+
+  
   const setRef = (key) => (el) => {
     if (el) refs.current[key] = el;
   };
@@ -53,6 +56,7 @@ const MainLayout = () => {
       >
         {isAuthenticated && <Header header_ref={setRef} />}
         <div className="app-layout__route-container">
+            <SpinnerComponent />
           <RouteComponent route_components_ref={setRef} />
         </div>
       </main>

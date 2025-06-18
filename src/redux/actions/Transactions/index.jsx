@@ -1,18 +1,22 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { is_loading_false,is_loading_true } from "src/redux/feature/loader";
 
 export const Transaction_List_Action = createAsyncThunk(
   "post/transaction_list",
-  async ( _,{ rejectWithValue }) => {
+  async ( _,{ rejectWithValue ,dispatch }) => {
     try {
+      dispatch(is_loading_true())
       const config = {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       };
       const result=await axios.post(`${import.meta.env.VITE_API_URI}/transaction/list`,{},config)
+      dispatch(is_loading_false())
       return result?.data;
     } catch (err) {
+      dispatch(is_loading_false())
       return rejectWithValue(err.response.data);
     }
   }

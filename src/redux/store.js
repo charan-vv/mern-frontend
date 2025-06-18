@@ -18,6 +18,8 @@ import transaction_list_slice from "./feature/Transactions";
 
 import user_slice from "./feature/Settings"
 
+// loader
+import loader_slice from "./feature/loader"
 
 export default configureStore ({
     reducer:{
@@ -26,6 +28,7 @@ export default configureStore ({
         categories_list:categories_list_slice,
         transaction_list:transaction_list_slice,
         user_details:user_slice,
+        loader:loader_slice
     },
 
     middleware:(getDefaultMiddleware)=>[
