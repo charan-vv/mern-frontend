@@ -1,5 +1,9 @@
 @use "../../utils/variables.scss" as var;
 
+
+.date-picker-wrapper{
+  margin-top: 10px;
+}
 .ant-picker-outlined {
   border: 1px solid var.$greyColor;
   &:hover {

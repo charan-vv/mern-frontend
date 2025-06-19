@@ -8,16 +8,23 @@ import {
   DatePicker,
 } from "src/components";
 import data from "./data.json";
+import { RxCross2 } from "react-icons/rx";
+import { TiTick } from "react-icons/ti";
 import { TbEdit } from "react-icons/tb";
 import { MdOutlineDeleteOutline } from "react-icons/md";
 import { Form, Formik } from "formik";
 import { transationsValidationSchema } from "src/validations/transcations";
 import { useInitialValues } from "src/helpers/hooks";
 import { useDispatch, useSelector } from "react-redux";
-import { Transaction_List_Action,Create_Transaction_Action,Update_Transaction_Action,Soft_Delete_Action } from "src/redux/actions/Transactions";
+import { 
+  Transaction_List_Action,
+  Create_Transaction_Action,
+  Update_Transaction_Action,
+  Soft_Delete_Action 
+} from "src/redux/actions/Transactions";
 import { Category_List_Action } from "src/redux/actions/Categories";
 import { useToast } from "src/helpers/toaster";
-// Constants for popup types
+
 const POPUP_TYPES = {
   FORM: "form_popup",
   DELETE: "delete_popup",
@@ -30,9 +37,10 @@ const FORM_MODES = {
 
 const Transactions = () => {
   const dispatch = useDispatch();
-  const toast =useToast();
+  const toast = useToast();
   const { transaction_list, total } = useSelector((state) => state?.transaction_list);
   const { category_list } = useSelector((state) => state?.categories_list);
+  
   const [infoState, setInfoState] = useState({
     form_popup: {
       popup: false,
@@ -50,7 +58,9 @@ const Transactions = () => {
 
 
 
+
   const initialValues = useInitialValues(data?.fields);
+
 
 
 
@@ -65,12 +75,14 @@ const Transactions = () => {
 
 
 
+
   const category_options = category_list?.map((category) => {
     return { 
       label: category?.category_name, 
       value: category?.uid 
     };
   });
+
 
 
 
@@ -81,20 +93,78 @@ const Transactions = () => {
 
 
 
-  const onClickRowEdit = useCallback((record) => {
-    setInfoState((prev) => ({
+
+  // Inline editing state and handlers
+  const [editingKey, setEditingKey] = useState("");
+  const [editForm, setEditForm] = useState({});
+  const [saveLoading, setSaveLoading] = useState(false);
+
+
+
+
+
+  const handleStartEdit = useCallback((record) => {
+    setEditingKey(record.uid);
+    setEditForm({ ...record });
+  }, []);
+
+
+
+
+  
+  const handleCancelEdit = useCallback(() => {
+    setEditingKey("");
+    setEditForm({});
+  }, []);
+
+
+
+
+
+  const handleFieldChange = useCallback((field, value) => {
+    setEditForm(prev => ({
       ...prev,
-      form_popup: {
-        popup: true,
-        data: record,
-        mode: FORM_MODES.EDIT,
-      },
+      [field]: value
     }));
   }, []);
+
   
 
- 
- 
+  const handleSaveEdit = useCallback(async () => {
+    try {
+      setSaveLoading(true);
+      
+      const payload = {
+        uid: editForm.uid,
+        date: editForm.date,
+        type: editForm.type,
+        category: editForm.category,
+        item: editForm.item,
+        amount: editForm.amount
+      };
+
+      const res = await dispatch(Update_Transaction_Action(payload));
+      
+      if (res.payload.code === 200) {
+        toast.success(res?.payload?.message);
+        dispatch(Transaction_List_Action());
+        setEditingKey("");
+        setEditForm({});
+      } else {
+        toast.error(res?.payload?.message);
+      }
+    } catch (error) {
+      console.error("Update failed:", error);
+      toast.error("Failed to update Transaction");
+    } finally {
+      setSaveLoading(false);
+    }
+  }, [editForm, dispatch, toast]);
+
+
+
+
+
   const onClickAddNew = useCallback(() => {
     setInfoState((prev) => ({
       ...prev,
@@ -109,17 +179,19 @@ const Transactions = () => {
 
 
 
+
   const handleDeletePopUp = useCallback((record) => {
     setInfoState((prev) => ({
       ...prev,
       delete_popup: {
         popup: true,
         data: {
-          uid:record?.uid
+          uid: record?.uid
         },
       },
     }));
   }, []);
+
 
 
 
@@ -145,6 +217,7 @@ const Transactions = () => {
       ...prev,
       loader: { ...prev.loader, save_button: true },
     }));
+    
     const resetState = () => {
       setInfoState((prev) => ({
         ...prev,
@@ -162,63 +235,160 @@ const Transactions = () => {
       }
       resetState();
     };
+    
     const uid = infoState.delete_popup.data?.uid;
     dispatch(Soft_Delete_Action(uid))
       .then(handleResponse)
       .catch((error) => {
-        toast.error("Failed to create category");
+        toast.error("Failed to delete transaction");
         resetState();
       });
-  }, [infoState.delete_popup.data]);
+  }, [infoState.delete_popup.data, dispatch, toast]);
 
 
 
 
 
+  // Modified columns to support inline editing
   const columns = useMemo(() => {
-    if (!data?.table_header) return [];
 
-    const cols = data?.table_header?.map((el) => ({
+    const columnWidths = {
+      date: 130,
+      item: 200,
+      type: 120,
+      category_name: 160,
+      amount: 100,
+    };
+
+     const cols = data?.table_header?.map((el) => ({
       title: el?.title,
       dataIndex: el?.dataIndex,
+      width: columnWidths[el?.dataIndex] || 150,
       key: el?.dataIndex,
+      editable: true,
+      inputType: el?.dataIndex === 'amount' ? 'number' : 'text',
+
+      render: (text, record) => {
+        const isEditing = record.uid === editingKey;
+        if (!isEditing ) {
+          return text;
+        }
+
+        const currentRecord =  editForm;
+        const handleChange = (field, value) => 
+          handleFieldChange(field, value,);
+
+        
+        // Render edit input using the same components as in the form
+        if (el?.dataIndex === 'category_name') {
+          return (
+            <AutoComplete
+              options={category_options}
+              value={currentRecord[el.dataIndex] || ''}
+              onChange={(_, option) => handleChange('category_name', option?.value)}
+              placeholder="Select Category"
+            />
+          );
+        } else if (el?.dataIndex === 'date') {
+          return (
+            <DatePicker
+              value={currentRecord[el.dataIndex] || ''}
+              onChange={(date, dateString) => handleChange(el.dataIndex, dateString)}
+              // className="w-full p-1"
+            />
+          );
+        } else if (el?.dataIndex === 'type') {
+          return (
+            <AutoComplete
+              options={[
+                { label: "Income", value: "income" },
+                { label: "Expense", value: "expense" }
+              ]}
+              value={currentRecord[el.dataIndex] || ''}
+              onChange={(_, option) => handleChange(el.dataIndex, option?.value)}
+              placeholder="Select Type"
+            
+            />
+          );
+        } else {
+          return (
+            <TextInput
+              type={el?.dataIndex === 'amount' ? 'number' : 'text'}
+              value={currentRecord[el.dataIndex] || ''}
+              onChange={(e) => handleChange(el.dataIndex, e.target.value)}
+            />
+          );
+        }
+      }
     }));
 
+    
     cols.push({
-      title: "Action",
+      title: "Actions",
       key: "operation",
       fixed: "right",
-      width: 100,
-      render: (_, record) => (
-        <div className="flex gap-3">
-          <TbEdit
-            className="cursor-pointer "
-            size={18}
-            onClick={(e) => {
-              e.stopPropagation();
-              onClickRowEdit(record);
-            }}
-          />
-          <MdOutlineDeleteOutline
-            className="cursor-pointer "
-            size={18}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDeletePopUp(record);
-            }}
-          />
-        </div>
-      ),
+      width: 140,
+      render: (_, record) => {
+        const isEditing = record.uid === editingKey;
+        // const isNew = isAddingNew && !record.uid;
+        
+        return (
+          <div className="flex gap-2">
+            {isEditing  ? (
+              <>
+                <TiTick
+                  className="cursor-pointer "
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // isNew ? handleSaveNew() : 
+                    handleSaveEdit();
+                  }}
+                  disabled={saveLoading}
+                />
+                <RxCross2
+                  className="cursor-pointer "
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCancelEdit();
+                  }}
+                  disabled={saveLoading}
+                />
+              </>
+            ) : (
+              <>
+                <TbEdit
+                  className="cursor-pointer "
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleStartEdit(record);
+                  }}
+                />
+                <MdOutlineDeleteOutline
+                  className="cursor-pointer "
+                  size={18}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeletePopUp(record);
+                  }}
+                />
+              </>
+            )}
+          </div>
+        );
+      },
     });
 
     return cols;
-  }, [onClickRowEdit, handleDeletePopUp]);
+  }, [editingKey, editForm, saveLoading, category_options, handleStartEdit, handleCancelEdit, handleSaveEdit, handleFieldChange, handleDeletePopUp]);
 
 
 
 
 
-const handleSubmit = useCallback(
+  const handleSubmit = useCallback(
     (values) => {
       setInfoState((prev) => ({
         ...prev,
@@ -243,63 +413,32 @@ const handleSubmit = useCallback(
         resetState();
       };
 
-      if (values?.uid) {
-        const payload = {
-          uid: values.uid,
-         date:values?.date,
-         type:values?.type,
-         category:values?.category,
-         item:values?.item,
-         amount:values?.amount
-        };
-       
-        dispatch(Update_Transaction_Action(payload))
-          .then(handleResponse)
-          .catch((error) => {
-            console.error("Update failed:", error);
-            toast.error("Failed to update Transcation");
-            resetState();
-          });
-      } else {
-        // Add new category
-  
-        dispatch(Create_Transaction_Action(values))
-          .then(handleResponse)
-          .catch((error) => {
-            toast.error("Failed to create Transaction");
-            resetState();
-          });
-      }
+      // Only handle ADD mode since EDIT is now inline
+      dispatch(Create_Transaction_Action(values))
+        .then(handleResponse)
+        .catch((error) => {
+          toast.error("Failed to create Transaction");
+          resetState();
+        });
     },
-    [dispatch]
-  ); 
+    [dispatch, toast]
+  );
 
 
 
 
 
   const getFormInitialValues = useCallback(() => {
-    const { mode, data } = infoState.form_popup;
-
-    if (mode === FORM_MODES.EDIT) {
-      return {
-        ...initialValues,
-        ...data,
-      };
-    }
-
     return initialValues;
-  }, [initialValues, infoState.form_popup]);
+  }, [initialValues]);
+
 
 
 
 
   const getPopupTitle = useCallback(() => {
-    const { mode } = infoState.form_popup;
-    return mode === FORM_MODES.EDIT
-      ? "Edit Transaction Entry"
-      : "Add New Transaction Entry";
-  }, [infoState.form_popup.mode]);
+    return "Add New Transaction Entry";
+  }, []);
 
 
 
@@ -325,9 +464,9 @@ const handleSubmit = useCallback(
           placeholder: field?.label,
           showAsterisk: field?.showAsterisk,
         };
-         const options =
+        
+        const options =
           field?.options === "category_options" ? category_options : field?.options;
-
 
         switch (field?.field) {
           case "date_picker":
@@ -335,7 +474,7 @@ const handleSubmit = useCallback(
               <DatePicker
                 label={field?.label}
                 showAsterisk={field?.showAsterisk}
-                error={[field?.name] && errors[field?.name]}
+                error={touched[field?.name] && errors[field?.name]}
                 value={values[field?.name]}
                 onChange={(date, dateString) => {
                   setFieldValue(field?.name, dateString);
@@ -352,7 +491,7 @@ const handleSubmit = useCallback(
                 value={values[field?.name] || ""}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={[field?.name] && errors[field?.name]}
+                error={touched[field?.name] && errors[field?.name]}
               />
             );
 
@@ -366,7 +505,7 @@ const handleSubmit = useCallback(
                   setFieldValue(field?.name, options?.value);
                 }}
                 onBlur={handleBlur}
-                error={[field?.name] && errors[field?.name]}
+                error={touched[field?.name] && errors[field?.name]}
               />
             );
 
@@ -387,11 +526,9 @@ const handleSubmit = useCallback(
         }
       });
     },
-    [infoState?.loader?.save_button]
+    [infoState?.loader?.save_button, category_options]
   );
-  
 
-   
   return (
     <>
       <Table
@@ -401,7 +538,7 @@ const handleSubmit = useCallback(
         onAddNew={onClickAddNew}
       />
 
-      {/* Form Popup (Add/Edit) */}
+      {/* Form Popup (Add Only) */}
       {infoState?.form_popup?.popup && (
         <Popup
           open={infoState?.form_popup?.popup}
@@ -432,7 +569,7 @@ const handleSubmit = useCallback(
         >
           <div className="p-6 text-center">
             <p className="mb-4 text-gray-700">
-              Are you sure you want to delete this Transcation entry?
+              Are you sure you want to delete this Transaction entry?
             </p>
 
             <div className="flex gap-3 justify-end">
@@ -456,3 +593,4 @@ const handleSubmit = useCallback(
 };
 
 export default Transactions;
+
