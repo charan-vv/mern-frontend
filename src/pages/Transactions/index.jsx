@@ -342,7 +342,7 @@ const Transactions = () => {
                   onClick={(e) => {
                     e.stopPropagation();
                     // isNew ? handleSaveNew() : 
-                    handleSaveEdit();
+                    // handleSaveEdit();
                   }}
                   disabled={saveLoading}
                 />

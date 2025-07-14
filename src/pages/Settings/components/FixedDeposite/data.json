@@ -1,0 +1,58 @@
+{
+    "fd_details":[
+
+        
+       
+         {
+            "field":"textInput",
+            "label":"Policy No",
+            "name":"policy_No",
+            "type":"text",
+            "showAsterisk":"true"
+        },
+          {
+            "field":"auto_complete",
+            "label":"Type ",
+            "name":"type",
+            "type":"text",
+            "options":"policy_options",
+            "showAsterisk":"true"
+        },
+          {
+            "field":"auto_complete",
+            "label":"Payment Type ",
+            "name":"payment_type",
+            "type":"text",
+            "options":"payment_type_options",
+            "showAsterisk":"true"
+        },
+         {
+            "field":"datePicker",
+            "label":"Start Date",
+            "name":"start_date",
+            "showAsterisk":"true"
+        },
+         {
+            "field":"datePicker",
+            "label":"Maturity Date",
+            "name":"maturity_date",
+            "showAsterisk":"true"
+        },
+         {
+            "field":"textInput",
+            "label":"Amount",
+            "name":"fd_amount",
+            "type":"number",
+            "showAsterisk":"true"
+        },
+        {
+            "field":"textInput",
+            "label":"Rate of Interest",
+            "name":"rate_of_interest",
+            "type":"number",
+            "showAsterisk":"true"
+        }
+    
+    ]
+       
+}

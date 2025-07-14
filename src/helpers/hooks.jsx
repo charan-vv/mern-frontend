@@ -4,7 +4,7 @@ export const formatTimer = (seconds) => {
   return `${minutes}:${secs.toString().padStart(2, "0")}`;
 };
 
-export const useInitialValues = (data, defaultValue = "") => {
+export const useInitialValues = (data, defaultValue = null) => {
   if (!data || !Array.isArray(data)) {
     return {};
   }

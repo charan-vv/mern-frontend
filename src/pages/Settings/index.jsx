@@ -5,6 +5,9 @@ import { BsThreeDots } from "react-icons/bs";
 import BasicDetails from "./components/BasicDetails";
 import BankDetails from "./components/BankDetails";
 import CardDetails from "./components/CardsDetails";
+import FixedDeposite from "./components/FixedDeposite";
+import LICDetails from "./components/LicDetails";
+import EmiDetails from "./components/EmiDetails";
 
 const Settings = () => {
   
@@ -35,6 +38,12 @@ const Settings = () => {
         label: "Cards Details",
         children: <CardDetails />,
       },
+      {
+        key:"4",
+        label:"Fixed Deposite",
+        children:<FixedDeposite />
+      },
+     
       
     ],
     []
@@ -44,7 +53,21 @@ const Settings = () => {
 
 
   // Hidden tabs
-  const HIDDEN_TABS = useMemo(() => [],[]);
+  const HIDDEN_TABS = useMemo(
+    () => [
+      {
+        key: "5",
+        label: "Lic",
+        children: <LICDetails/>,
+      },
+      {
+        key: "6",
+        label: "EMI",
+        children: <EmiDetails/>,
+      },
+    ],
+    []
+  );
 
 
 

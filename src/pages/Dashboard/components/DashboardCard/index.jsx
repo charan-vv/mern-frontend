@@ -4,7 +4,7 @@ import "./style.scss"
 
 
 const DashboardCard = ({route_components_ref,cardData,loading}) => {
-  {console.log(route_components_ref,"route_components_ref")}
+ 
   return (
     <div className="dashboard-card-container">
       {(loading ? [...Array(cardData?.length)] : cardData)?.map((item, index) => (

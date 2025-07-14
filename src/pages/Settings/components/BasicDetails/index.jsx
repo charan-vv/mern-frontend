@@ -55,17 +55,21 @@ const index = () => {
                             return (
                                   <PhoneNumber label={field?.label} name={field?.name} phoneNumber={values[field?.name]} onPhoneChange={(el)=>{ setFieldValue('phone_number', el)}}showAsterisk={field?.showAsterisk}error={touched[field?.name] && errors[field?.name]}/>
                                 )}   
-                        if (field?.field === "button") {
-                            return (
-                                  <React.Fragment key={index}>
-                                       <div className="budget_auth_btn_section mt-2"><Button textContent={field?.textContent}className={field?.class}type={field?.type}isLoading={infoState?.loader?.update_button}/></div>
-                                  </React.Fragment>
-                                          )}
+                        // if (field?.field === "button") {
+                        //     return (
+                        //           <React.Fragment key={index}>
+                        //                <div className="budget_auth_btn_section mt-2"><Button textContent={field?.textContent}className={field?.class}type={field?.type}isLoading={infoState?.loader?.update_button}/></div>
+                        //           </React.Fragment>
+                        //                   )}
                           return null;
                           })}
                         </div>
+                        <div className=' flex justify-end mt-5'>
+                          <Button  textContent={'Update'}type={'submit'}isLoading={infoState?.loader?.update_button}/>
+                        </div>
                   </Form>
               )}
+
       </Formik>
      </div>
     </>

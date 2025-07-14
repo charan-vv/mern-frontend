@@ -498,7 +498,7 @@
   .sidebar {
     margin: 10px;
     height: calc(100vh - 20px);
-
+      
     &--expanded {
       width: calc(#{base.$side_bar_width} - 20px);
     }
@@ -508,6 +508,6 @@
 // Dark mode support
 @media (prefers-color-scheme: dark) {
   .sidebar {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+     // box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
   }
 }

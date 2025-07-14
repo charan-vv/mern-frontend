@@ -46,3 +46,29 @@ export const bankValidationSchema = Yup.object().shape({
     })
   ),
 });
+
+
+
+export const cardValidationSchema = Yup.object().shape({
+  card_details: Yup.array().of(
+    Yup.object().shape({
+      card_type: Yup.string()
+        .required("Card Type is required"),
+
+      card_name: Yup.string()
+        .required("Card Name is required"),
+
+      expired_date: Yup.string()
+        .required("Expired Date is required"),
+
+      cvv: Yup.number()
+        .typeError("CVV must be a number")
+        .required("CVV is required"),
+
+      balance: Yup.number()
+        .typeError("Balance must be a number")
+        .required("Balance is required")
+    })
+  )
+});
+

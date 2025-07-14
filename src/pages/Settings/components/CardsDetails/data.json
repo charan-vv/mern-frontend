@@ -6,7 +6,35 @@
             "label":"Card Type",
             "name":"card_type",
              "type": "text",
+             "options":"card_options",
             "showAsterisk": true
+        },
+         {
+            "field":"textInput",
+            "label":"Card Name",
+            "name":"card_name",
+            "type":"text",
+            "showAsterisk":"true"
+        },
+         {
+            "field":"datePicker",
+            "label":"Expired Date",
+            "name":"expired_date",
+            "showAsterisk":"true"
+        },
+         {
+            "field":"textInput",
+            "label":"CVV",
+            "name":"cvv",
+            "type":"number",
+            "showAsterisk":"true"
+        },
+        {
+            "field":"textInput",
+            "label":"Balance",
+            "name":"balance",
+            "type":"number",
+            "showAsterisk":"true"
         }
     
     ]
